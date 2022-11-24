@@ -7,6 +7,11 @@ import com.pengrad.telegrambot.UpdatesListener;
 import com.pengrad.telegrambot.model.Message;
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.SendMessage;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.models.media.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
@@ -19,11 +24,16 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Message handling class
+ */
 @Service
 public class TelegramPetBotListener implements UpdatesListener {
     public ClientRepository clientRepository;
     public PetRepository petRepository;
-
+    /**
+     * Search rule pattern
+     */
     private final Pattern patternMessage = Pattern.compile("([1])");
 
     @Autowired
@@ -40,8 +50,22 @@ public class TelegramPetBotListener implements UpdatesListener {
         telegramBot.setUpdatesListener(this);
     }
 
-    public int process(List<Update> updates) {
 
+    /**
+     * Processing user messages
+     *
+     * @param updates
+     * @return id of the last processed message
+     */
+    @Operation(summary = "Message reply",
+            responses =
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Message reply"
+            )
+    )
+
+    public int process(List<Update> updates) {
         updates.forEach(update -> {
             Message message = update.message();
             Long chatId = update.message().chat().id();
@@ -59,8 +83,8 @@ public class TelegramPetBotListener implements UpdatesListener {
                 telegramBot.execute(sendMenu);
             } else if (matcherMessage.matches()) {
                 SendMessage receievedMenu1 = new SendMessage(chatId,
-                            "Наш приют находится в г.Астана, здесь Вы сможете обрести себе друга - одного из наших чудесных подопечных. У каждой собаки есть паспорт со всеми необходимыми вакцинами");
-                    telegramBot.execute(receievedMenu1);
+                        "Наш приют находится в г.Астана, здесь Вы сможете обрести себе друга - одного из наших чудесных подопечных. У каждой собаки есть паспорт со всеми необходимыми вакцинами");
+                telegramBot.execute(receievedMenu1);
             }
         });
         return UpdatesListener.CONFIRMED_UPDATES_ALL;
