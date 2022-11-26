@@ -4,6 +4,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+/**
+ * модель Клиента в БД
+ */
 @Entity
 public class Client {
     @Id
