@@ -57,13 +57,6 @@ public class TelegramPetBotListener implements UpdatesListener {
      * @param updates
      * @return id of the last processed message
      */
-    @Operation(summary = "Message reply",
-            responses =
-            @ApiResponse(
-                    responseCode = "200",
-                    description = "Message reply"
-            )
-    )
 
     public int process(List<Update> updates) {
         updates.forEach(update -> {

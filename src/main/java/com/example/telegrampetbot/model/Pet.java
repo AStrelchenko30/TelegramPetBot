@@ -1,11 +1,13 @@
 package com.example.telegrampetbot.model;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 
 @Entity
 public class Pet {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private Long ownerId;
@@ -14,7 +16,7 @@ public class Pet {
     @JoinColumn(name = "id", referencedColumnName = "ownerId")
     private Client client;
 
-    public Pet(Long id, String name, Long ownerId, Client client){
+    public Pet(Long id, String name, Long ownerId, Client client) {
         this.id = id;
         this.name = name;
         this.ownerId = ownerId;
@@ -24,11 +26,10 @@ public class Pet {
     public Pet() {
     }
 
-
-
     public Long getId() {
         return id;
     }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -36,6 +37,7 @@ public class Pet {
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -43,6 +45,7 @@ public class Pet {
     public Long getOwnerId() {
         return ownerId;
     }
+
     public void setOwnerId(Long ownerId) {
         this.ownerId = ownerId;
     }
@@ -50,7 +53,9 @@ public class Pet {
     public Client getClient() {
         return client;
     }
+
     public void setClient(Client client) {
         this.client = client;
     }
+
 }
