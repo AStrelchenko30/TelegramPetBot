@@ -2,6 +2,9 @@ package com.example.telegrampetbot.model;
 
 import javax.persistence.*;
 
+/**
+ * Модель Питомцев в БД
+ */
 @Entity
 public class Pet {
     @Id
