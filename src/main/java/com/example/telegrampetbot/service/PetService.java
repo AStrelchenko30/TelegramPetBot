@@ -4,7 +4,17 @@ import com.example.telegrampetbot.model.Pet;
 import com.example.telegrampetbot.repositories.PetRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.transaction.Transactional;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
+import static io.swagger.v3.core.util.AnnotationsUtils.getExtensions;
+import static java.nio.file.StandardOpenOption.CREATE_NEW;
 
 @Service
 public class PetService {

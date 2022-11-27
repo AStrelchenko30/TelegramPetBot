@@ -16,6 +16,9 @@ import java.util.Objects;
 
 import static java.nio.file.StandardOpenOption.CREATE_NEW;
 
+/**
+ * A class that stores methods for working with a photo of a pet
+ */
 @Service
 @Transactional
 public class PhotoService {
@@ -30,10 +33,15 @@ public class PhotoService {
     @Value("/photo")
     private String photoDir;
 
+    /**
+     * Method for processing the incoming image
+     * @param petId
+     * @param photoFile pet image file
+     * @throws IOException
+     */
     public void uploadPhoto(Long petId, MultipartFile photoFile) throws IOException {
         Pet pet = petRepository.getById(petId);
         Path filePath = Path.of(photoDir, pet + "." + getExtensions(Objects.requireNonNull(photoFile.getOriginalFilename())));
-//        Path filePath = Path.of(photoDir, pet + "." + getExtensions(photoFile.getOriginalFilename()));
         Files.createDirectories(filePath.getParent());
         Files.deleteIfExists(filePath);
         try (
@@ -57,6 +65,11 @@ public class PhotoService {
         return photoRepository.findByPetId(petId).orElse(new Photo());
     }
 
+    /**
+     * Returns the name of the image file
+     * @param fileName
+     * @return
+     */
     private String getExtensions(String fileName) {
         return fileName.substring(fileName.lastIndexOf(".") + 1);
     }

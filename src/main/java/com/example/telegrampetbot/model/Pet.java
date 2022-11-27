@@ -1,5 +1,4 @@
 package com.example.telegrampetbot.model;
-
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -7,7 +6,7 @@ import javax.persistence.*;
 @Entity
 public class Pet {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Long id;
     private String name;
     private Long ownerId;
@@ -22,7 +21,6 @@ public class Pet {
         this.ownerId = ownerId;
         this.client = client;
     }
-
     public Pet() {
     }
 

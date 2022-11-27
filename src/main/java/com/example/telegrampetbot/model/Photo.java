@@ -4,6 +4,9 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 
+/**
+ * Class for creating an entity - a Photo object (pet images)
+ */
 @Entity
 public class Photo {
     @Id
