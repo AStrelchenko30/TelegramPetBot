@@ -46,7 +46,7 @@ public class ClientService {
 
     /**
      * Нахождение клиента по иденфикатору
-     * Используется метод {@link JpaRepository#findById(Object)} )}
+     * Используется метод {@link JpaRepository#findById(Object)}
      * @param id идентификатор клиента
      * @return найденного клиента из БД
      */

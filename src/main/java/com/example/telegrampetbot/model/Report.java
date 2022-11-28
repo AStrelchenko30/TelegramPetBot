@@ -2,6 +2,9 @@ package com.example.telegrampetbot.model;
 
 import javax.persistence.*;
 
+/**
+ * модель отчетов в БД
+ */
 @Entity
 public class Report {
     @Id
@@ -18,7 +21,7 @@ public class Report {
     private byte[] data;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "ClientId", referencedColumnName = "id")
+    @JoinColumn(name = "client_id", referencedColumnName = "id")
     private Client client;
 
 
