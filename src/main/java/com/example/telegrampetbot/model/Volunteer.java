@@ -4,21 +4,16 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-/**
- * модель Клиента в БД
- */
 @Entity
-public class Client {
+public class Volunteer {
     @Id
     @GeneratedValue
     private Long id;
-    private Long passportNumber;
-    private Long chatId;
     private String name;
     private String surname;
     private String mail;
 
-    public Client() {
+    public Volunteer(){
     }
 
 
@@ -28,20 +23,6 @@ public class Client {
     }
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getPassportNumber() {
-        return passportNumber;
-    }
-    public void setPassportNumber(Long passportNumber) {
-        this.passportNumber = passportNumber;
-    }
-
-    public Long getChatId() {
-        return chatId;
-    }
-    public void setChatId(Long chatId) {
-        this.chatId = chatId;
     }
 
     public String getName() {

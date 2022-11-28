@@ -2,16 +2,15 @@ package com.example.telegrampetbot.model;
 
 import javax.persistence.*;
 
-/**
- * Модель Питомцев в БД
- */
 @Entity
-public class Pet {
+public class Report {
     @Id
     @GeneratedValue
     private Long id;
-    private String name;
-    private Long ownerId;
+    private Long ClientId;
+    private String condition;
+    private String ration;
+    private String changes;
 
     private String filePath;
     private Long fileSize;
@@ -19,10 +18,11 @@ public class Pet {
     private byte[] data;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id", referencedColumnName = "ownerId")
+    @JoinColumn(name = "ClientId", referencedColumnName = "id")
     private Client client;
 
-    public Pet(){
+
+    public Report(){
     }
 
 
@@ -34,26 +34,34 @@ public class Pet {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public Long getClientId() {
+        return ClientId;
     }
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Long getOwnerId() {
-        return ownerId;
-    }
-    public void setOwnerId(Long ownerId) {
-        this.ownerId = ownerId;
+    public void setClientId(Long clientId) {
+        ClientId = clientId;
     }
 
-    public Client getClient() {
-        return client;
+    public String getCondition() {
+        return condition;
     }
-    public void setClient(Client client) {
-        this.client = client;
+    public void setCondition(String condition) {
+        this.condition = condition;
     }
+
+    public String getRation() {
+        return ration;
+    }
+    public void setRation(String ration) {
+        this.ration = ration;
+    }
+
+    public String getChanges() {
+        return changes;
+    }
+    public void setChanges(String changes) {
+        this.changes = changes;
+    }
+
 
 
     public String getFilePath() {
