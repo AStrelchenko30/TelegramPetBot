@@ -1,7 +1,8 @@
 package com.example.telegrampetbot.controller;
 
 import com.example.telegrampetbot.model.Pet;
-import com.example.telegrampetbot.service.PetService;
+import com.example.telegrampetbot.model.Volunteer;
+import com.example.telegrampetbot.service.VolunteerService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -12,39 +13,40 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- * Controller class for adding a pet to the database
- */
-@RequestMapping("pet")
-@RestController
-public class PetController {
-    public final PetService petService;
 
-    public PetController(PetService petService) {
-        this.petService = petService;
+/**
+ * Controller class for adding a volunteer to the database
+ */
+@RequestMapping("volunteer")
+@RestController
+public class VolunteerController {
+    public final VolunteerService volunteerService;
+
+    public VolunteerController(VolunteerService volunteerService) {
+        this.volunteerService = volunteerService;
     }
 
     @Operation(
-            summary = "Добавление данных о питомце",
+            summary = "Добавление данных волонтера",
             responses =
             @ApiResponse(
                     responseCode = "200",
-                    description = "Данные о питомце добавлены",
+                    description = "Данные о волонтере добавлены",
                     content = @Content(
                             mediaType = MediaType.APPLICATION_JSON_VALUE
                     )
             ),
             requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
-                    description = "Добавление данных о питомце"
+                    description = "Добавление данных о волонтере"
             )
     )
 
     /**
-     * Post request to create a pet
+     * Post request to create a volunteer
      */
     @PostMapping
-    public ResponseEntity<Pet> createPet(@RequestBody Pet pet) {
-        Pet createdPet = petService.createPet(pet);
-        return ResponseEntity.ok(createdPet);
+    public ResponseEntity<Volunteer> createVolunteer(@RequestBody Volunteer volunteer) {
+        Volunteer createdVolunteer = volunteerService.createVolunteer(volunteer);
+        return ResponseEntity.ok(createdVolunteer);
     }
 }

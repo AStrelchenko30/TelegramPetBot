@@ -10,7 +10,7 @@ public class Report {
     @Id
     @GeneratedValue
     private Long id;
-    private Long ClientId;
+    private Long ClientID;
     private String condition;
     private String ration;
     private String changes;
@@ -28,8 +28,6 @@ public class Report {
     public Report(){
     }
 
-
-
     public Long getId() {
         return id;
     }
@@ -38,10 +36,10 @@ public class Report {
     }
 
     public Long getClientId() {
-        return ClientId;
+        return ClientID;
     }
     public void setClientId(Long clientId) {
-        ClientId = clientId;
+        ClientID = clientId;
     }
 
     public String getCondition() {
