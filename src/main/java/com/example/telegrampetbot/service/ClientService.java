@@ -50,7 +50,7 @@ public class ClientService {
      * @param id идентификатор клиента
      * @return найденного клиента из БД
      */
-    public Client findClient(Long id) {
+    public Client findClient(Integer id) {
         logger.info("findClient method used in ClientService");
         return clientRepository.findById(id).get();
     }
@@ -60,7 +60,7 @@ public class ClientService {
      * @param id идентификатор клиента
      * @return найденного и удаленного клиента из БД
      */
-    public void deleteClient(Long id) {
+    public void deleteClient(Integer id) {
         logger.info("deleteClient method used in ClientService");
         clientRepository.deleteById(id);
     }

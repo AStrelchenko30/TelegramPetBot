@@ -1,5 +1,7 @@
 package com.example.telegrampetbot.listener;
 
+import com.example.telegrampetbot.model.Client;
+import com.example.telegrampetbot.model.Pet;
 import com.example.telegrampetbot.repositories.ClientRepository;
 import com.example.telegrampetbot.repositories.PetRepository;
 import com.pengrad.telegrambot.TelegramBot;
@@ -20,6 +22,8 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -34,7 +38,7 @@ public class TelegramPetBotListener implements UpdatesListener {
     /**
      * Search rule pattern
      */
-    private final Pattern patternMessage = Pattern.compile("([1])");
+    private final Pattern patternMessage = Pattern.compile("[a-zA-Z]");
 
     @Autowired
     private final TelegramBot telegramBot;
@@ -57,7 +61,7 @@ public class TelegramPetBotListener implements UpdatesListener {
      * @param updates
      * @return id of the last processed message
      */
-
+    @Override
     public int process(List<Update> updates) {
         updates.forEach(update -> {
             Message message = update.message();
@@ -65,7 +69,7 @@ public class TelegramPetBotListener implements UpdatesListener {
             String textM = message.text();
             Matcher matcherMessage = patternMessage.matcher(message.text());
             if ("/start".equals(textM)) {
-                SendMessage sendMessage = new SendMessage(chatId, "Приветсвуем Вас в наше телеграм боте");
+                SendMessage sendMessage = new SendMessage(chatId, "Приветсвуем Вас в нашем телеграм боте");
                 telegramBot.execute(sendMessage);
                 SendMessage sendMenu = new SendMessage(chatId,
                         "Какую услугу вы хотите получить?" +
@@ -74,13 +78,20 @@ public class TelegramPetBotListener implements UpdatesListener {
                                 "\n2-Как взять собаку из приюта" +
                                 "\n3-Прислать отчет о питомце");
                 telegramBot.execute(sendMenu);
-            } else if (matcherMessage.matches()) {
+            } else if ("1".equals(textM)) {
                 SendMessage receievedMenu1 = new SendMessage(chatId,
-                        "Наш приют находится в г.Астана, здесь Вы сможете обрести себе друга - одного из наших чудесных подопечных. У каждой собаки есть паспорт со всеми необходимыми вакцинами");
+                        "Наш приют 'Лапа' находится в г.Астана, здесь Вы сможете обрести себе друга - одного из наших чудесных " +
+                                "подопечных. У каждой собаки есть паспорт со всеми необходимыми вакцинами. " +
+                                "Мы находимся по адресу: г. Астана, ул. Аккорган, 5В. Работаем ежедневно 11:00-18:00. " +
+                                "Вы можете оставить нам свои контактные данные для связи. Укажите Ваш телефон");
                 telegramBot.execute(receievedMenu1);
+                Client client = new Client(chatId, textM, "122", 122L, "mail");
+                clientRepository.save(client);
+
             }
         });
         return UpdatesListener.CONFIRMED_UPDATES_ALL;
     }
+
 }
 

@@ -12,24 +12,25 @@ public class Pet {
     private Long id;
     private String name;
     private Long ownerId;
-
     private String filePath;
     private Long fileSize;
     private String mediaType;
+
     private byte[] data;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id", referencedColumnName = "ownerId")
     private Client client;
 
-    public Pet(){
-    }
 
+    public Pet() {
+    }
 
 
     public Long getId() {
         return id;
     }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -37,6 +38,7 @@ public class Pet {
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -44,6 +46,7 @@ public class Pet {
     public Long getOwnerId() {
         return ownerId;
     }
+
     public void setOwnerId(Long ownerId) {
         this.ownerId = ownerId;
     }
@@ -51,6 +54,7 @@ public class Pet {
     public Client getClient() {
         return client;
     }
+
     public void setClient(Client client) {
         this.client = client;
     }
@@ -59,6 +63,7 @@ public class Pet {
     public String getFilePath() {
         return filePath;
     }
+
     public void setFilePath(String filePath) {
         this.filePath = filePath;
     }
@@ -66,6 +71,7 @@ public class Pet {
     public Long getFileSize() {
         return fileSize;
     }
+
     public void setFileSize(Long fileSize) {
         this.fileSize = fileSize;
     }
@@ -73,6 +79,7 @@ public class Pet {
     public String getMediaType() {
         return mediaType;
     }
+
     public void setMediaType(String mediaType) {
         this.mediaType = mediaType;
     }
@@ -80,6 +87,7 @@ public class Pet {
     public byte[] getData() {
         return data;
     }
+
     public void setData(byte[] data) {
         this.data = data;
     }
