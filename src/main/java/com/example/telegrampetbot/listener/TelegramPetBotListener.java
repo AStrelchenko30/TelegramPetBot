@@ -25,6 +25,7 @@ import javax.annotation.PostConstruct;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -34,12 +35,12 @@ import java.util.regex.Pattern;
 @Service
 public class TelegramPetBotListener implements UpdatesListener {
     public ClientRepository clientRepository;
+
     public PetRepository petRepository;
     /**
      * Search rule pattern
      */
-    private final Pattern patternMessage = Pattern.compile("[a-zA-Z]");
-
+    private final Pattern patternMessage = Pattern.compile("(^[0-9]{11})(\\s)([a-zA-Z]+$)");
     @Autowired
     private final TelegramBot telegramBot;
 
@@ -53,7 +54,6 @@ public class TelegramPetBotListener implements UpdatesListener {
     public void init() {
         telegramBot.setUpdatesListener(this);
     }
-
 
     /**
      * Processing user messages
@@ -83,15 +83,25 @@ public class TelegramPetBotListener implements UpdatesListener {
                         "Наш приют 'Лапа' находится в г.Астана, здесь Вы сможете обрести себе друга - одного из наших чудесных " +
                                 "подопечных. У каждой собаки есть паспорт со всеми необходимыми вакцинами. " +
                                 "Мы находимся по адресу: г. Астана, ул. Аккорган, 5В. Работаем ежедневно 11:00-18:00. " +
-                                "Вы можете оставить нам свои контактные данные для связи. Укажите Ваш телефон");
+                                "Вы можете оставить нам свои контактные данные для связи. Укажите Ваш телефон и имя " +
+                                "в формате: 81234567788 name");
                 telegramBot.execute(receievedMenu1);
-                Client client = new Client(chatId, textM, "122", 122L, "mail");
-                clientRepository.save(client);
 
+            } else if (matcherMessage.matches()) {
+                String phone = matcherMessage.group(1);
+                String name = matcherMessage.group(3);
+                Client client = new Client(chatId, phone, name, 0L, " ");
+                clientRepository.save(client);
+            }
+            if ("2".equals(textM)) {
+                SendMessage receievedMenu1 = new SendMessage(chatId,
+                        "Со всеми, кто желает взять собаку из приюта, наши волонтеры проводят личные встречи. " +
+                                "После чего Вы выбираете питомца и забираете его к себе домой. В дальнейшем необходимо " +
+                                "будет отправлять отчеты о состоянии собаки.");
+                telegramBot.execute(receievedMenu1);
             }
         });
         return UpdatesListener.CONFIRMED_UPDATES_ALL;
     }
-
 }
 
