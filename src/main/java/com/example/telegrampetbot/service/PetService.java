@@ -1,5 +1,7 @@
 package com.example.telegrampetbot.service;
 
+import com.example.telegrampetbot.exception.ClientNotFoundException;
+import com.example.telegrampetbot.exception.PetNotFoundException;
 import com.example.telegrampetbot.model.Pet;
 import com.example.telegrampetbot.repositories.PetRepository;
 import org.slf4j.Logger;
@@ -20,49 +22,66 @@ public class PetService {
     /**
      * Создание нового питомца в БД приюта
      * Используется метод {@link JpaRepository#save(Object)}
+     *
      * @param pet новый питомец
      * @return создание питомца
      */
     public Pet createPet(Pet pet) {
         logger.info("createPet method used in PetService");
-        return petRepository.save(pet);
+        if (!petRepository.findAll().contains(pet)) {
+            return petRepository.save(pet);
+        }
+        throw new PetNotFoundException();
     }
 
     /**
      * Добавление нового питомца в БД приюта
      * Используется метод {@link JpaRepository#save(Object)}
+     *
      * @param petNew новый питомец
      * @return добавленного питомца
      */
 
     public Pet updatePet(Pet petNew) {
         logger.info("updatePet method used in PetService");
-        Pet petOld = petRepository.findById(petNew.getId()).get();
-        petOld.setName(petNew.getName());
-        petOld.setOwnerId(petNew.getOwnerId());
-        return petRepository.save(petOld);
+        if (petRepository.findById(petNew.getId()).isPresent()) {
+            Pet petOld = petRepository.findById(petNew.getId()).get();
+            petOld.setName(petNew.getName());
+            petOld.setOwnerId(petNew.getOwnerId());
+            return petRepository.save(petOld);
+        }
+        throw new PetNotFoundException();
     }
 
     /**
      * Нахождение питомца по идентификатору в БД приюта
      * Используется метод {@link JpaRepository#findById(Object)}
+     *
      * @param id идентификатор нужного питомца
      * @return найденный питомец
      */
 
     public Pet findPet(Long id) {
         logger.info("findPet method used in PetService");
-        return petRepository.findById(id).get();
+        if (petRepository.findById(id).isPresent()) {
+            return petRepository.findById(id).get();
+        }
+        throw new PetNotFoundException();
     }
+
     /**
      * Нахождение питомца по идентификатору и удаление его из БД приюта
      * Используется метод {@link JpaRepository#deleteById(Object)}
+     *
      * @param id идентификатор нужного питомца
      * @return удаленный питомец
      */
 
     public void deletePet(Long id) {
         logger.info("deletePet method used in PetService");
-        petRepository.deleteById(id);
+        if (petRepository.findById(id).isPresent()) {
+            petRepository.deleteById(id);
+        }
+        throw new PetNotFoundException();
     }
 }
