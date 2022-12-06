@@ -1,5 +1,6 @@
 package com.example.telegrampetbot.service;
 
+import com.example.telegrampetbot.exception.PhotoNotFoundException;
 import com.example.telegrampetbot.model.Pet;
 import com.example.telegrampetbot.model.Photo;
 import com.example.telegrampetbot.repositories.PetRepository;
@@ -35,6 +36,7 @@ public class PhotoService {
 
     /**
      * Method for processing the incoming image
+     *
      * @param petId
      * @param photoFile pet image file
      * @throws IOException
@@ -62,11 +64,15 @@ public class PhotoService {
     }
 
     public Photo findPhotoPet(Long petId) {
-        return photoRepository.findByPetId(petId).orElse(new Photo());
+        if (photoRepository.findById(petId).isPresent()) {
+            return photoRepository.findByPetId(petId).orElse(new Photo());
+        }
+        throw new PhotoNotFoundException();
     }
 
     /**
      * Returns the name of the image file
+     *
      * @param fileName
      * @return
      */
