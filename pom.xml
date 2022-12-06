@@ -52,13 +52,7 @@
             <artifactId>java-telegram-bot-api</artifactId>
             <version>5.7.0</version>
         </dependency>
-        <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-ui</artifactId>
-            <version>1.6.3</version>
-        </dependency>
     </dependencies>
-
 
     <build>
         <plugins>
