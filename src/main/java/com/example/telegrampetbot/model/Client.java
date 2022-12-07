@@ -1,9 +1,7 @@
 package com.example.telegrampetbot.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Collection;
 
 /**
  * модель Клиента в БД
@@ -18,6 +16,12 @@ public class Client {
     private String name;
     private String surname;
     private String mail;
+
+    @OneToMany(mappedBy="id", fetch=FetchType.LAZY)
+    private Collection<Cat> cats;
+
+    @OneToMany(mappedBy="id", fetch=FetchType.LAZY)
+    private Collection<Dog> dogs;
 
     public Client(Long chatId, String mail, String name, Long passportNumber, String surname) {
         this.chatId = chatId;

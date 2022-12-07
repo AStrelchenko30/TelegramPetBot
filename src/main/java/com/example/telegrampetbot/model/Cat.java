@@ -3,10 +3,10 @@ package com.example.telegrampetbot.model;
 import javax.persistence.*;
 
 /**
- * Модель Dog в БД
+ * Модель Cat в БД
  */
 @Entity
-public class Dog {
+public class Cat {
     @Id
     @GeneratedValue
     private Long id;
@@ -23,7 +23,7 @@ public class Dog {
     private Client client;
 
 
-    public Dog() {
+    public Cat() {
     }
 
 
