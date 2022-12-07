@@ -16,5 +16,5 @@ public interface PhotoRepository extends JpaRepository<Photo, Long> {
      * @param petId
      * @return object of class Photo
      */
-    Optional<Photo> findByPetId(Long petId);
+    Optional<Photo> findByDogId(Long petId);
 }

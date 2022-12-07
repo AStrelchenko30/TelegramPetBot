@@ -20,8 +20,8 @@ public class Report {
     private String mediaType;
     private byte[] data;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "client_id", referencedColumnName = "id")
+    @OneToOne (cascade = CascadeType.ALL)
+    @JoinColumn(name = "client_id" ,referencedColumnName = "id")
     private Client client;
 
 

@@ -1,56 +1,55 @@
 package com.example.telegrampetbot.service;
 
-import com.example.telegrampetbot.exception.ClientNotFoundException;
-import com.example.telegrampetbot.exception.PetNotFoundException;
-import com.example.telegrampetbot.model.Pet;
-import com.example.telegrampetbot.repositories.PetRepository;
+import com.example.telegrampetbot.exception.DogNotFoundException;
+import com.example.telegrampetbot.model.Dog;
+import com.example.telegrampetbot.repositories.DogRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PetService {
+public class DogService {
 
     private static final Logger logger = LoggerFactory.getLogger(ClientService.class);
-    private final PetRepository petRepository;
+    private final DogRepository dogRepository;
 
-    public PetService(PetRepository petRepository) {
-        this.petRepository = petRepository;
+    public DogService(DogRepository dogRepository) {
+        this.dogRepository = dogRepository;
     }
 
     /**
      * Создание нового питомца в БД приюта
      * Используется метод {@link JpaRepository#save(Object)}
      *
-     * @param pet новый питомец
+     * @param dog новый питомец
      * @return создание питомца
      */
-    public Pet createPet(Pet pet) {
+    public Dog createDog(Dog dog) {
         logger.info("createPet method used in PetService");
-        if (!petRepository.findAll().contains(pet)) {
-            return petRepository.save(pet);
+        if (!dogRepository.findAll().contains(dog)) {
+            return dogRepository.save(dog);
         }
-        throw new PetNotFoundException();
+        throw new DogNotFoundException();
     }
 
     /**
      * Добавление нового питомца в БД приюта
      * Используется метод {@link JpaRepository#save(Object)}
      *
-     * @param petNew новый питомец
+     * @param dogNew новый питомец
      * @return добавленного питомца
      */
 
-    public Pet updatePet(Pet petNew) {
+    public Dog updateDog(Dog dogNew) {
         logger.info("updatePet method used in PetService");
-        if (petRepository.findById(petNew.getId()).isPresent()) {
-            Pet petOld = petRepository.findById(petNew.getId()).get();
-            petOld.setName(petNew.getName());
-            petOld.setOwnerId(petNew.getOwnerId());
-            return petRepository.save(petOld);
+        if (dogRepository.findById(dogNew.getId()).isPresent()) {
+            Dog dogOld = dogRepository.findById(dogNew.getId()).get();
+            dogOld.setName(dogNew.getName());
+            dogOld.setOwnerId(dogNew.getOwnerId());
+            return dogRepository.save(dogOld);
         }
-        throw new PetNotFoundException();
+        throw new DogNotFoundException();
     }
 
     /**
@@ -61,12 +60,12 @@ public class PetService {
      * @return найденный питомец
      */
 
-    public Pet findPet(Long id) {
+    public Dog findDog(Long id) {
         logger.info("findPet method used in PetService");
-        if (petRepository.findById(id).isPresent()) {
-            return petRepository.findById(id).get();
+        if (dogRepository.findById(id).isPresent()) {
+            return dogRepository.findById(id).get();
         }
-        throw new PetNotFoundException();
+        throw new DogNotFoundException();
     }
 
     /**
@@ -77,11 +76,11 @@ public class PetService {
      * @return удаленный питомец
      */
 
-    public void deletePet(Long id) {
+    public void deleteDog(Long id) {
         logger.info("deletePet method used in PetService");
-        if (petRepository.findById(id).isPresent()) {
-            petRepository.deleteById(id);
+        if (dogRepository.findById(id).isPresent()) {
+            dogRepository.deleteById(id);
         }
-        throw new PetNotFoundException();
+        throw new DogNotFoundException();
     }
 }

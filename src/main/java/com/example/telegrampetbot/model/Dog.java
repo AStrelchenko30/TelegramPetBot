@@ -6,7 +6,7 @@ import javax.persistence.*;
  * Модель Питомцев в БД
  */
 @Entity
-public class Pet {
+public class Dog {
     @Id
     @GeneratedValue
     private Long id;
@@ -23,7 +23,7 @@ public class Pet {
     private Client client;
 
 
-    public Pet() {
+    public Dog() {
     }
 
 

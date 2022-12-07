@@ -1,19 +1,13 @@
 package com.example.telegrampetbot.listener;
 
 import com.example.telegrampetbot.model.Client;
-import com.example.telegrampetbot.model.Pet;
 import com.example.telegrampetbot.repositories.ClientRepository;
-import com.example.telegrampetbot.repositories.PetRepository;
+import com.example.telegrampetbot.repositories.DogRepository;
 import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.UpdatesListener;
 import com.pengrad.telegrambot.model.Message;
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.SendMessage;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import io.swagger.v3.oas.models.media.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
@@ -22,10 +16,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -36,7 +27,7 @@ import java.util.regex.Pattern;
 public class TelegramPetBotListener implements UpdatesListener {
     public ClientRepository clientRepository;
 
-    public PetRepository petRepository;
+    public DogRepository dogRepository;
     /**
      * Search rule pattern
      */
@@ -44,9 +35,9 @@ public class TelegramPetBotListener implements UpdatesListener {
     @Autowired
     private final TelegramBot telegramBot;
 
-    public TelegramPetBotListener(ClientRepository clientRepository, PetRepository petRepository, TelegramBot telegramBot) {
+    public TelegramPetBotListener(ClientRepository clientRepository, DogRepository dogRepository, TelegramBot telegramBot) {
         this.clientRepository = clientRepository;
-        this.petRepository = petRepository;
+        this.dogRepository = dogRepository;
         this.telegramBot = telegramBot;
     }
 

@@ -1,6 +1,5 @@
 package com.example.telegrampetbot.controller;
 
-import com.example.telegrampetbot.model.Pet;
 import com.example.telegrampetbot.model.Volunteer;
 import com.example.telegrampetbot.service.VolunteerService;
 import io.swagger.v3.oas.annotations.Operation;

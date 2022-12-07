@@ -1,8 +1,8 @@
 package com.example.telegrampetbot.controller;
 
-import com.example.telegrampetbot.model.Pet;
-import com.example.telegrampetbot.repositories.PetRepository;
-import com.example.telegrampetbot.service.PetService;
+import com.example.telegrampetbot.model.Dog;
+import com.example.telegrampetbot.repositories.DogRepository;
+import com.example.telegrampetbot.service.DogService;
 import net.minidev.json.JSONObject;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,15 +18,15 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(controllers = PetController.class)
+@WebMvcTest(controllers = DogController.class)
 class PetControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
     @MockBean
-    private PetRepository petRepository;
+    private DogRepository dogRepository;
     @SpyBean
-    private PetService petService;
+    private DogService dogService;
 
     @Test
     void createPet() throws Exception {
@@ -35,14 +35,14 @@ class PetControllerTest {
         petObject.put("name", "Ivan");
 
 
-        Pet pet = new Pet();
-        pet.setId(1L);
-        pet.setName("Ivan");
-        when(petService.createPet(any(Pet.class))).thenReturn(pet);
+        Dog dog = new Dog();
+        dog.setId(1L);
+        dog.setName("Ivan");
+        when(dogService.createDog(any(Dog.class))).thenReturn(dog);
 
 
         mockMvc.perform(MockMvcRequestBuilders
-                        .post("/pet")
+                        .post("/dog")
                         .content(petObject.toString())
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))

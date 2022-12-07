@@ -1,7 +1,7 @@
 package com.example.telegrampetbot.controller;
 
-import com.example.telegrampetbot.model.Pet;
-import com.example.telegrampetbot.service.PetService;
+import com.example.telegrampetbot.model.Dog;
+import com.example.telegrampetbot.service.DogService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -15,13 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * Controller class for adding a pet to the database
  */
-@RequestMapping("pet")
+@RequestMapping("dog")
 @RestController
-public class PetController {
-    public final PetService petService;
+public class DogController {
+    public final DogService dogService;
 
-    public PetController(PetService petService) {
-        this.petService = petService;
+    public DogController(DogService dogService) {
+        this.dogService = dogService;
     }
 
     @Operation(
@@ -43,8 +43,8 @@ public class PetController {
      * Post request to create a pet
      */
     @PostMapping
-    public ResponseEntity<Pet> createPet(@RequestBody Pet pet) {
-        Pet createdPet = petService.createPet(pet);
-        return ResponseEntity.ok(createdPet);
+    public ResponseEntity<Dog> createDog(@RequestBody Dog dog) {
+        Dog createdDog = dogService.createDog(dog);
+        return ResponseEntity.ok(createdDog);
     }
 }

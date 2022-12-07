@@ -20,7 +20,7 @@ public class Photo {
     private byte[] data;
 
     @OneToOne
-    private Pet pet;
+    private Dog dog;
 
     public void setFilePath(String filePath) {
         this.filePath = filePath;
@@ -54,12 +54,12 @@ public class Photo {
         return data;
     }
 
-    public void setPet(Pet pet) {
-        this.pet = pet;
+    public void setPet(Dog dog) {
+        this.dog = dog;
     }
 
-    public Pet getPet() {
-        return pet;
+    public Dog getPet() {
+        return dog;
     }
 
 }

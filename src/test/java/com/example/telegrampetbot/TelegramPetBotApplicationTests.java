@@ -1,6 +1,6 @@
 package com.example.telegrampetbot;
 
-import com.example.telegrampetbot.controller.PetController;
+import com.example.telegrampetbot.controller.DogController;
 import com.example.telegrampetbot.controller.PhotoController;
 import com.example.telegrampetbot.controller.VolunteerController;
 import org.assertj.core.api.Assertions;
@@ -17,7 +17,7 @@ class TelegramPetBotApplicationTests {
     private int port;
 
     @Autowired
-    private PetController petController;
+    private DogController dogController;
     @Autowired
     private PhotoController photoController;
     @Autowired
@@ -29,7 +29,7 @@ class TelegramPetBotApplicationTests {
 
     @Test
     void contextLoads() throws Exception{
-        Assertions.assertThat(petController).isNotNull();
+        Assertions.assertThat(dogController).isNotNull();
         Assertions.assertThat(photoController).isNotNull();
         Assertions.assertThat(volunteerController).isNotNull();
     }
