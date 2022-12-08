@@ -46,7 +46,7 @@ public class DogService {
         if (dogRepository.findById(dogNew.getId()).isPresent()) {
             Dog dogOld = dogRepository.findById(dogNew.getId()).get();
             dogOld.setName(dogNew.getName());
-            dogOld.setOwnerId(dogNew.getOwnerId());
+            dogOld.setOwner(dogNew.getOwner());
             return dogRepository.save(dogOld);
         }
         throw new DogNotFoundException();
