@@ -7,10 +7,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Controller class for adding a cat to the database
@@ -47,4 +44,38 @@ public class CatController {
         Cat createdCat = catService.createCat(cat);
         return ResponseEntity.ok(createdCat);
     }
+
+    /**
+     * Update Cat in Db
+     *
+     * @return updatedCat
+     */
+    @PutMapping
+    public ResponseEntity<Cat> updateCat(@RequestBody Cat catNew) {
+        Cat updatedCat = catService.updateCat(catNew);
+        return ResponseEntity.ok(updatedCat);
+    }
+
+    /**
+     * Find Cat in Db by ID
+     *
+     * @return Cat in BD
+     */
+    @GetMapping(params = {"id"})
+    public ResponseEntity<Cat> findCat(@PathVariable Long id) {
+        Cat findCat = catService.findCat(id);
+        return ResponseEntity.ok(findCat);
+    }
+
+    /**
+     * Find Cat in Db and delete
+     *
+     * @param id
+     */
+    @DeleteMapping(params = {"id"})
+    public void deleteCat(@PathVariable Long id) {
+        catService.deleteCat(id);
+    }
+
+
 }

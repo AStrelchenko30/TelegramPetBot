@@ -31,7 +31,7 @@ public class CatPhotoService {
         this.catRepository = catRepository;
     }
 
-    @Value("/photo")
+    @Value("/photoCat")
     private String photoDir;
 
     /**
@@ -54,7 +54,7 @@ public class CatPhotoService {
         ) {
             bis.transferTo(bos);
         }
-        CatPhoto catPhoto = findPhotoPet(catId);
+        CatPhoto catPhoto = findPhotoCat(catId);
         catPhoto.setCat(cat);
         catPhoto.setFilePath(filePath.toString());
         catPhoto.setFileSize(photoFile.getSize());
@@ -63,9 +63,9 @@ public class CatPhotoService {
         catPhotoRepository.save(catPhoto);
     }
 
-    public CatPhoto findPhotoPet(Long petId) {
-        if (catPhotoRepository.findById(petId).isPresent()) {
-            return catPhotoRepository.findByCatId(petId).orElse(new CatPhoto());
+    public CatPhoto findPhotoCat(Long catId) {
+        if (catPhotoRepository.findById(catId).isPresent()) {
+            return catPhotoRepository.findByCatId(catId).orElse(new CatPhoto());
         }
         throw new PhotoNotFoundException();
     }

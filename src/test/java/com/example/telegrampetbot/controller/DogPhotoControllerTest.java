@@ -12,7 +12,7 @@ import static org.mockito.Mockito.verify;
 
 
 @ExtendWith(MockitoExtension.class)
-class DogDogPhotoControllerTest {
+class DogPhotoControllerTest {
 
     @Mock
     private DogPhotoRepository dogPhotoRepository;
