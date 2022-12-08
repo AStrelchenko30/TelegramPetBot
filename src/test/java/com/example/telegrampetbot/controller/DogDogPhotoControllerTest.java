@@ -1,7 +1,7 @@
 package com.example.telegrampetbot.controller;
 
-import com.example.telegrampetbot.model.Photo;
-import com.example.telegrampetbot.repositories.PhotoRepository;
+import com.example.telegrampetbot.model.DogPhoto;
+import com.example.telegrampetbot.repositories.DogPhotoRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -12,18 +12,18 @@ import static org.mockito.Mockito.verify;
 
 
 @ExtendWith(MockitoExtension.class)
-class PhotoControllerTest {
+class DogDogPhotoControllerTest {
 
     @Mock
-    private PhotoRepository photoRepository;
+    private DogPhotoRepository dogPhotoRepository;
 
 
 
     @Test
     void uploadPhoto()  {
-        Photo newPhoto= Mockito.mock(Photo.class);
-        photoRepository.save(newPhoto);
-        verify(photoRepository).save(newPhoto);
+        DogPhoto newDogPhoto = Mockito.mock(DogPhoto.class);
+        dogPhotoRepository.save(newDogPhoto);
+        verify(dogPhotoRepository).save(newDogPhoto);
     }
     }
 

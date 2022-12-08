@@ -3,30 +3,28 @@ package com.example.telegrampetbot.model;
 import javax.persistence.*;
 
 /**
- * модель отчетов в БД
+ * модель отчетов dog в БД
  */
 @Entity
-public class Report {
+public class DogReport {
     @Id
     @GeneratedValue
     private Long id;
-    private Long ClientID;
     private String condition;
     private String ration;
     private String changes;
 
-    private String filePath;
-    private Long fileSize;
-    private String mediaType;
-    private byte[] data;
+    @OneToOne
+    @JoinColumn(name = "dog_photo_id")
+    private DogPhoto dogPhoto;
 
     @OneToOne (cascade = CascadeType.ALL)
     @JoinColumn(name = "client_id" ,referencedColumnName = "id")
     private Client client;
 
-
-    public Report(){
+    public DogReport(){
     }
+
 
     public Long getId() {
         return id;
@@ -35,11 +33,11 @@ public class Report {
         this.id = id;
     }
 
-    public Long getClientId() {
-        return ClientID;
+    public Client getClient() {
+        return client;
     }
-    public void setClientId(Long clientId) {
-        ClientID = clientId;
+    public void setClient(Client client) {
+        client = client;
     }
 
     public String getCondition() {
@@ -63,33 +61,11 @@ public class Report {
         this.changes = changes;
     }
 
-
-
-    public String getFilePath() {
-        return filePath;
-    }
-    public void setFilePath(String filePath) {
-        this.filePath = filePath;
+    public DogPhoto getDogPhoto() {
+        return dogPhoto;
     }
 
-    public Long getFileSize() {
-        return fileSize;
-    }
-    public void setFileSize(Long fileSize) {
-        this.fileSize = fileSize;
-    }
-
-    public String getMediaType() {
-        return mediaType;
-    }
-    public void setMediaType(String mediaType) {
-        this.mediaType = mediaType;
-    }
-
-    public byte[] getData() {
-        return data;
-    }
-    public void setData(byte[] data) {
-        this.data = data;
+    public void setDogPhoto(DogPhoto dogPhoto) {
+        this.dogPhoto = dogPhoto;
     }
 }

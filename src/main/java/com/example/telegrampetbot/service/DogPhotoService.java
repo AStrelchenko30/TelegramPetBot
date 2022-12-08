@@ -2,9 +2,9 @@ package com.example.telegrampetbot.service;
 
 import com.example.telegrampetbot.exception.PhotoNotFoundException;
 import com.example.telegrampetbot.model.Dog;
-import com.example.telegrampetbot.model.Photo;
+import com.example.telegrampetbot.model.DogPhoto;
 import com.example.telegrampetbot.repositories.DogRepository;
-import com.example.telegrampetbot.repositories.PhotoRepository;
+import com.example.telegrampetbot.repositories.DogPhotoRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,16 +18,16 @@ import java.util.Objects;
 import static java.nio.file.StandardOpenOption.CREATE_NEW;
 
 /**
- * A class that stores methods for working with a photo of a pet
+ * A class that stores methods for working with a photo of a dog
  */
 @Service
 @Transactional
-public class PhotoService {
-    private final PhotoRepository photoRepository;
+public class DogPhotoService {
+    private final DogPhotoRepository dogPhotoRepository;
     private final DogRepository dogRepository;
 
-    public PhotoService(PhotoRepository photoRepository, DogRepository dogRepository) {
-        this.photoRepository = photoRepository;
+    public DogPhotoService(DogPhotoRepository dogPhotoRepository, DogRepository dogRepository) {
+        this.dogPhotoRepository = dogPhotoRepository;
         this.dogRepository = dogRepository;
     }
 
@@ -38,7 +38,7 @@ public class PhotoService {
      * Method for processing the incoming image
      *
      * @param dogId
-     * @param photoFile pet image file
+     * @param photoFile dog image file
      * @throws IOException
      */
     public void uploadPhoto(Long dogId, MultipartFile photoFile) throws IOException {
@@ -54,18 +54,18 @@ public class PhotoService {
         ) {
             bis.transferTo(bos);
         }
-        Photo photo = findPhotoPet(dogId);
-        photo.setPet(dog);
-        photo.setFilePath(filePath.toString());
-        photo.setFileSize(photoFile.getSize());
-        photo.setMediaType(photoFile.getContentType());
-        photo.setData(photoFile.getBytes());
-        photoRepository.save(photo);
+        DogPhoto dogPhoto = findPhotoDog(dogId);
+        dogPhoto.setDog(dog);
+        dogPhoto.setFilePath(filePath.toString());
+        dogPhoto.setFileSize(photoFile.getSize());
+        dogPhoto.setMediaType(photoFile.getContentType());
+        dogPhoto.setData(photoFile.getBytes());
+        dogPhotoRepository.save(dogPhoto);
     }
 
-    public Photo findPhotoPet(Long petId) {
-        if (photoRepository.findById(petId).isPresent()) {
-            return photoRepository.findByDogId(petId).orElse(new Photo());
+    public DogPhoto findPhotoDog(Long dogId) {
+        if (dogPhotoRepository.findById(dogId).isPresent()) {
+            return dogPhotoRepository.findByDogId(dogId).orElse(new DogPhoto());
         }
         throw new PhotoNotFoundException();
     }

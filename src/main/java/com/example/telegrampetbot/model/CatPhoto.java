@@ -5,10 +5,10 @@ import org.hibernate.annotations.Type;
 import javax.persistence.*;
 
 /**
- * Class for creating an entity - a Photo object (pet images)
+ * Class for creating an entity - a Cat Photo object (cat images)
  */
 @Entity
-public class Photo {
+public class CatPhoto {
     @Id
     @GeneratedValue
     private Long id;
@@ -20,7 +20,7 @@ public class Photo {
     private byte[] data;
 
     @OneToOne
-    private Dog dog;
+    private Cat cat;
 
     public void setFilePath(String filePath) {
         this.filePath = filePath;
@@ -54,12 +54,12 @@ public class Photo {
         return data;
     }
 
-    public void setPet(Dog dog) {
-        this.dog = dog;
+    public void setCat(Cat cat) {
+        this.cat = cat;
     }
 
-    public Dog getPet() {
-        return dog;
+    public Cat getCat() {
+        return cat;
     }
 
 }

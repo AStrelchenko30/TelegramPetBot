@@ -31,7 +31,7 @@ public class CatService {
         if (catRepository.findById(catNew.getId()).isPresent()) {
             Cat catOld = catRepository.findById(catNew.getId()).get();
             catOld.setName(catNew.getName());
-            catOld.setOwnerId(catNew.getOwnerId());
+            catOld.setOwner(catNew.getOwner());
             return catRepository.save(catOld);
         }
         throw new CatNotFoundException();

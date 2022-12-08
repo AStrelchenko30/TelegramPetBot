@@ -11,17 +11,14 @@ public class Cat {
     @GeneratedValue
     private Long id;
     private String name;
-    private Long ownerId;
-    private String filePath;
-    private Long fileSize;
-    private String mediaType;
 
-    private byte[] data;
+    @OneToOne
+    @JoinColumn(name = "cat_photo_id")
+    private CatPhoto catPhoto;
 
     @ManyToOne (fetch = FetchType.LAZY)
     @JoinColumn (name="ownerId", insertable = false, updatable = false)
-    private Client client;
-
+    private Client owner;
 
     public Cat() {
     }
@@ -43,52 +40,19 @@ public class Cat {
         this.name = name;
     }
 
-    public Long getOwnerId() {
-        return ownerId;
+    public Client getOwner() {
+        return owner;
     }
 
-    public void setOwnerId(Long ownerId) {
-        this.ownerId = ownerId;
+    public void setOwner(Client client) {
+        this.owner = client;
     }
 
-    public Client getClient() {
-        return client;
+    public CatPhoto getCatPhoto() {
+        return catPhoto;
     }
 
-    public void setClient(Client client) {
-        this.client = client;
-    }
-
-
-    public String getFilePath() {
-        return filePath;
-    }
-
-    public void setFilePath(String filePath) {
-        this.filePath = filePath;
-    }
-
-    public Long getFileSize() {
-        return fileSize;
-    }
-
-    public void setFileSize(Long fileSize) {
-        this.fileSize = fileSize;
-    }
-
-    public String getMediaType() {
-        return mediaType;
-    }
-
-    public void setMediaType(String mediaType) {
-        this.mediaType = mediaType;
-    }
-
-    public byte[] getData() {
-        return data;
-    }
-
-    public void setData(byte[] data) {
-        this.data = data;
+    public void setCatPhoto(CatPhoto catPhoto) {
+        this.catPhoto = catPhoto;
     }
 }
