@@ -16,6 +16,7 @@ import java.io.IOException;
 /**
  * Controller for adding a dog photo to a separate database with a photo
  */
+@RequestMapping("/dogPhoto")
 @RestController
 public class DogPhotoController {
 

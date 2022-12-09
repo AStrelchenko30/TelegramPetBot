@@ -1,6 +1,6 @@
 package com.example.telegrampetbot.controller;
 
-import com.example.telegrampetbot.model.Dog;
+import com.example.telegrampetbot.model.Cat;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -12,27 +12,24 @@ import java.io.IOException;
 
 import static org.mockito.Mockito.verify;
 
-
 @ExtendWith(MockitoExtension.class)
-class DogPhotoControllerTest {
-    Dog newDog = Mockito.mock(Dog.class);
+class CatPhotoControllerTest {
+    Cat newCat= Mockito.mock(Cat.class);
     MultipartFile photo=Mockito.mock(MultipartFile.class);
-    Long dogId=newDog.getId();
-
-
+    Long catId=newCat.getId();
     @Mock
-    private DogPhotoController dogPhotoController;
-
+    private CatPhotoController catPhotoController;
 
     @Test
-    void tryUploadPhoto() throws IOException {
-        dogPhotoController.uploadPhoto(dogId,photo);
-        verify(dogPhotoController).uploadPhoto(dogId,photo);
-    }
-    @Test
-    void tryFindPhoto(){
-        dogPhotoController.findPhotoDog(dogId);
-        verify(dogPhotoController).findPhotoDog(dogId);
-    }
+    void uploadPhoto() throws IOException {
+        catPhotoController.uploadPhoto(catId,photo);
+        verify(catPhotoController).uploadPhoto(catId,photo);
+
     }
 
+    @Test
+    void findPhotoCat() {
+        catPhotoController.findPhotoCat(catId);
+        verify(catPhotoController).findPhotoCat(catId);
+    }
+}

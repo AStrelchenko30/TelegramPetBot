@@ -15,8 +15,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
-
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -36,31 +36,34 @@ class VolunteerControllerTest {
     @InjectMocks
     private VolunteerController volunteerController;
 
-        @Test
-        void createVolunteer()throws Exception {
-            JSONObject volunteerObject=new JSONObject();
-            volunteerObject.put("id", 1L);
-            volunteerObject.put("name","Ivan");
-            volunteerObject.put("surname","Ivanov");
-            volunteerObject.put("mail","mail");
+    @Test
+    void createVolunteer() throws Exception {
 
-            Volunteer volunteer=new Volunteer();
-            volunteer.setId(1L);
-            volunteer.setName("Ivan");
-            volunteer.setSurname("Ivanov");
-            volunteer.setMail("mail");
-            when(volunteerService.createVolunteer(any(Volunteer.class))).thenReturn(volunteer);
+        final long id = 1;
+        final String name = "Ivan";
+        final String surName = "Ivanov";
+        final String mail = "mail";
 
-            mockMvc.perform(MockMvcRequestBuilders
-                    .post("/volunteer")
-                    .content(volunteerObject.toString())
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .accept(MediaType.APPLICATION_JSON))
-                    .andExpect(status().isOk())
-                    .andExpect(jsonPath("$.name").value("name"))
-                    .andExpect(jsonPath("$.surname").value("surname"))
-                    .andExpect(jsonPath("$.mail").value("mail"));
+        JSONObject volunteerObject = new JSONObject();
+        volunteerObject.put("id", id);
+        volunteerObject.put("name", name);
+        volunteerObject.put("surname", surName);
+        volunteerObject.put("mail", mail);
 
 
-        }
+        Volunteer volunteer = new Volunteer(id, name, surName, mail);
+        when(volunteerService.createVolunteer(any(Volunteer.class))).thenReturn(volunteer);
+        when(volunteerService.updateVolunteer(any(Volunteer.class))).thenReturn(volunteer);
+        when(volunteerService.findVolunteer(eq(id))).thenReturn(volunteer);
+        mockMvc.perform(MockMvcRequestBuilders
+                        .post("/volunteer")
+                        .content(volunteerObject.toString())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.name").value(name))
+                .andExpect(jsonPath("$.surname").value(surName))
+                .andExpect(jsonPath("$.mail").value(mail));
+
+    }
 }
