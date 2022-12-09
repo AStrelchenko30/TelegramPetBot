@@ -8,16 +8,16 @@ import javax.persistence.*;
 @Entity
 public class Dog {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
 
     @OneToOne
-    @JoinColumn(name = "dog_photo_id")
+    @JoinColumn(name = "id")
     private DogPhoto dogPhoto;
 
     @ManyToOne (fetch = FetchType.LAZY)
-    @JoinColumn (name="ownerId", insertable = false, updatable = false)
+    @JoinColumn (name="id", insertable = false, updatable = false)
     private Client owner;
 
     public Dog() {
