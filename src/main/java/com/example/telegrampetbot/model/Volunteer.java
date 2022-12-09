@@ -17,6 +17,13 @@ public class Volunteer {
     private String surname;
     private String mail;
 
+    public Volunteer(Long id, String name, String surname, String mail) {
+        this.id = id;
+        this.name = name;
+        this.surname = surname;
+        this.mail = mail;
+    }
+
     public Volunteer(){
     }
 

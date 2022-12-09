@@ -1,5 +1,6 @@
 package com.example.telegrampetbot.controller;
 
+import com.example.telegrampetbot.model.CatPhoto;
 import com.example.telegrampetbot.service.CatPhotoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -7,10 +8,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -18,6 +16,7 @@ import java.io.IOException;
 /**
  * Controller for adding a cat photo to a separate database with a photo
  */
+@RequestMapping("/catPhoto")
 @RestController
 public class CatPhotoController {
 
@@ -45,6 +44,16 @@ public class CatPhotoController {
     public ResponseEntity<String> uploadPhoto(@Parameter(description = "Укажите ID кота") @PathVariable Long catId, @Parameter(description = "Загрузите фото кота") @RequestParam(name = "Фото кота") MultipartFile photo) throws IOException {
         catPhotoService.uploadPhoto(catId, photo);
         return ResponseEntity.ok().build();
+    }
+    /**
+     * Find CatPhoto in Db by ID
+     *
+     * @return CatPhoto in BD
+     */
+    @GetMapping(params = {"catId"})
+    public ResponseEntity<CatPhoto> findPhotoCat(@PathVariable Long catId){
+        CatPhoto catPhoto=catPhotoService.findPhotoCat(catId);
+        return ResponseEntity.ok(catPhoto);
     }
 
 }

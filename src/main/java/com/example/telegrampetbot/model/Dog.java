@@ -12,6 +12,11 @@ public class Dog {
     private Long id;
     private String name;
 
+    public Dog(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     @OneToOne
     @JoinColumn(name = "id")
     private DogPhoto dogPhoto;

@@ -1,5 +1,6 @@
 package com.example.telegrampetbot.controller;
 
+import com.example.telegrampetbot.model.DogPhoto;
 import com.example.telegrampetbot.service.DogPhotoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -7,10 +8,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -18,6 +16,7 @@ import java.io.IOException;
 /**
  * Controller for adding a dog photo to a separate database with a photo
  */
+@RequestMapping("/dogPhoto")
 @RestController
 public class DogPhotoController {
 
@@ -46,5 +45,16 @@ public class DogPhotoController {
         dogPhotoService.uploadPhoto(dogId, photo);
         return ResponseEntity.ok().build();
     }
+    /**
+     * Find DogPhoto in Db by ID
+     *
+     * @return DogPhoto in BD
+     */
+    @GetMapping(params = {"dogId"})
+    public ResponseEntity<DogPhoto> findPhotoDog(@PathVariable Long dogId) {
+        DogPhoto findPhoto = dogPhotoService.findPhotoDog(dogId);
+        return ResponseEntity.ok(findPhoto);
+    }
+
 
 }

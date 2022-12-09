@@ -7,10 +7,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 /**
@@ -48,4 +45,39 @@ public class VolunteerController {
         Volunteer createdVolunteer = volunteerService.createVolunteer(volunteer);
         return ResponseEntity.ok(createdVolunteer);
     }
+
+    /**
+     * Update Volunteer in Db
+     *
+     * @return updatedVolunteer
+     */
+    @PutMapping
+    public ResponseEntity<Volunteer> updateVolunteer(@RequestBody Volunteer volunteerNew) {
+        Volunteer updatedVolunteer = volunteerService.updateVolunteer(volunteerNew);
+        return ResponseEntity.ok(updatedVolunteer);
+    }
+
+    /**
+     * Find Volunteer in Db by ID
+     *
+     * @return Volunteer in BD
+     */
+    @GetMapping(params = {"id"})
+    public ResponseEntity<Volunteer> findVolunteer(@PathVariable Long id) {
+        Volunteer findVolunteer = volunteerService.findVolunteer(id);
+        return ResponseEntity.ok(findVolunteer);
+    }
+
+    /**
+     * Find Volunteer in Db and delete
+     *
+     * @param id
+     */
+    @DeleteMapping(params = {"id"})
+    public void deleteVolunteer(@PathVariable Long id) {
+        volunteerService.deleteVolunteer(id);
+    }
+
+
+
 }
