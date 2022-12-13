@@ -8,18 +8,18 @@ import javax.persistence.*;
 @Entity
 public class DogReport {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String condition;
     private String ration;
     private String changes;
 
     @OneToOne
-    @JoinColumn(name = "dog_photo_id")
+    @JoinColumn(name = "id")
     private DogPhoto dogPhoto;
 
     @OneToOne (cascade = CascadeType.ALL)
-    @JoinColumn(name = "client_id" ,referencedColumnName = "id")
+    @JoinColumn(name = "id" ,referencedColumnName = "id")
     private Client client;
 
     public DogReport(){

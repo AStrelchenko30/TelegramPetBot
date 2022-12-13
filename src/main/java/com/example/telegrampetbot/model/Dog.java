@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Entity
 public class Dog {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
 
@@ -17,12 +17,8 @@ public class Dog {
         this.name = name;
     }
 
-    @OneToOne
-    @JoinColumn(name = "dog_photo_id")
-    private DogPhoto dogPhoto;
-
     @ManyToOne (fetch = FetchType.LAZY)
-    @JoinColumn (name="ownerId", insertable = false, updatable = false)
+    @JoinColumn (name="id", insertable = false, updatable = false)
     private Client owner;
 
     public Dog() {
@@ -53,11 +49,11 @@ public class Dog {
         this.owner = client;
     }
 
-    public DogPhoto getDogPhoto() {
-        return dogPhoto;
-    }
-
-    public void setDogPhoto(DogPhoto dogPhoto) {
-        this.dogPhoto = dogPhoto;
-    }
+//    public DogPhoto getDogPhoto() {
+//        return dogPhoto;
+//    }
+//
+//    public void setDogPhoto(DogPhoto dogPhoto) {
+//        this.dogPhoto = dogPhoto;
+//    }
 }

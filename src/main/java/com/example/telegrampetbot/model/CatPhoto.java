@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Entity
 public class CatPhoto {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String filePath;
     private long fileSize;
