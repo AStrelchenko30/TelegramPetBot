@@ -12,10 +12,6 @@ public class Cat {
     private Long id;
     private String name;
 
-    @OneToOne
-    @JoinColumn(name = "id")
-    private CatPhoto catPhoto;
-
     @ManyToOne (fetch = FetchType.LAZY)
     @JoinColumn (name="owner", insertable = false, updatable = false)
     private Client owner;
@@ -48,11 +44,11 @@ public class Cat {
         this.owner = client;
     }
 
-    public CatPhoto getCatPhoto() {
-        return catPhoto;
-    }
-
-    public void setCatPhoto(CatPhoto catPhoto) {
-        this.catPhoto = catPhoto;
-    }
+//    public CatPhoto getCatPhoto() {
+//        return catPhoto;
+//    }
+//
+//    public void setCatPhoto(CatPhoto catPhoto) {
+//        this.catPhoto = catPhoto;
+//    }
 }

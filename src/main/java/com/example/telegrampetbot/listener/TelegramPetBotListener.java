@@ -60,89 +60,90 @@ public class TelegramPetBotListener implements UpdatesListener {
             String textM = message.text();
             Matcher matcherMessage = patternMessage.matcher(message.text());
 
-            if ("/start".equals(textM)) {
-                SendMessage sendMenuPet = new SendMessage(chatId,
-                        "Приветствуем Вас в нашем телеграм-боте." +
-                                "\n Для выбора приюта для собак, введите dog" +
-                                "\n Для выбора приюта для кошек, введите cat");
-                telegramBot.execute(sendMenuPet);
-            }
-            if ("dog".equals(textM)) {
-                SendMessage sendMenu = new SendMessage(chatId,
-                        "Какую услугу вы хотите получить?" +
-                                " \nНапишите цифру для ответа:" +
-                                "\n1-Узнать информацию о приюте" +
-                                "\n2-Как взять собаку из приюта" +
-                                "\n3-Прислать отчет о питомце");
-                telegramBot.execute(sendMenu);
-                switch (textM) {
-                    case "1" -> {
-                        SendMessage sendMessage1 = new SendMessage(chatId, "Наш приют 'Лапа' находится в г. Астана, ул. Аккорган, 5Б. Работаем ежедневно 10:00-17:00." +
-                                "Здесь Вы сможете обрести себе друга - одного из наших чудесных" +
-                                "подопечных. У каждой собаки есть паспорт со всеми необходимыми вакцинами. " +
-                                "Вы можете оставить нам свои контактные данные для связи. Укажите Ваш телефон и имя " +
-                                "в формате: 81234567788 name");
-                        telegramBot.execute(sendMessage1);
-                    }
-                    case "2" -> {
-                        SendMessage receievedMenuDog2 = new SendMessage(chatId,
-                                "Со всеми, кто желает взять собаку из приюта, наши волонтеры проводят личные встречи. " +
-                                        "После чего Вы выбираете питомца и забираете его к себе домой. В дальнейшем необходимо " +
-                                        "будет отправлять отчеты о состоянии собаки.");
-                        telegramBot.execute(receievedMenuDog2);
-                    }
-                    case "3" -> {
-                        SendMessage receievedMenuDog3 = new SendMessage(chatId,
-                                "Отправьте, пожалуйста, отчет в следуещем формате:" +
-                                        "в первом сообщении фото" +
-                                        "второе сообщение-условия" +
-                                        "третье сообщение-рацион" +
-                                        "четвертое сообщение-изменения");
-                        telegramBot.execute(receievedMenuDog3);
-                    }
+            switch (textM) {
+                case "/start" -> {
+                    SendMessage sendMenuPet = new SendMessage(chatId,
+                            "Приветствуем Вас в нашем телеграм-боте." +
+                                    "\n Для выбора приюта для собак, введите dog" +
+                                    "\n Для выбора приюта для кошек, введите cat");
+                    telegramBot.execute(sendMenuPet);
                 }
+                case "dog" -> {
+                    SendMessage sendMenu = new SendMessage(chatId,
+                            "Какую услугу вы хотите получить?" +
+                                    "\nНапишите нужное для ответа:" +
+                                    "\n1d-Узнать информацию о приюте" +
+                                    "\n2d-Как взять собаку из приюта" +
+                                    "\n3d-Прислать отчет о питомце");
+                    telegramBot.execute(sendMenu);
+                }
+                case "1d" -> {
+                    SendMessage sendMessage1 = new SendMessage(chatId, "Наш приют 'Лапа' находится в г. Астана, ул. Аккорган, 5Б. Работаем ежедневно 10:00-17:00." +
+                            "Здесь Вы сможете обрести себе друга - одного из наших чудесных" +
+                            "подопечных. У каждой собаки есть паспорт со всеми необходимыми вакцинами. " +
+                            "Вы можете оставить нам свои контактные данные для связи. Укажите Ваш телефон и имя " +
+                            "в формате: 81234567788 name");
+                    telegramBot.execute(sendMessage1);
 
-            } else if ("cat".equals(textM)) {
-                SendMessage sendMenuCat = new SendMessage(chatId,
-                        "Какую услугу вы хотите получить?" +
-                                " \nНапишите цифру для ответа:" +
-                                "\n1-Узнать информацию о приюте" +
-                                "\n2-Как взять кошку из приюта" +
-                                "\n3-Прислать отчет о питомце");
-                telegramBot.execute(sendMenuCat);
-                switch (textM) {
-                    case "1" -> {
-                        SendMessage sendMessage1 = new SendMessage(chatId, "Наш приют 'Лапа' находится в г. Астана, ул. Аккорган, 5В. Работаем ежедневно 11:00-18:00." +
-                                "Здесь Вы сможете обрести себе друга - одного из наших чудесных" +
-                                "подопечных. У каждой кошки есть паспорт со всеми необходимыми вакцинами. " +
-                                "Вы можете оставить нам свои контактные данные для связи. Укажите Ваш телефон и имя " +
-                                "в формате: 81234567788 name");
-                        telegramBot.execute(sendMessage1);
-                    }
-                    case "2" -> {
-                        SendMessage receievedMenuCat2 = new SendMessage(chatId,
-                                "Со всеми, кто желает взять собаку из приюта, наши волонтеры проводят личные встречи. " +
-                                        "После чего Вы выбираете питомца и забираете его к себе домой. В дальнейшем необходимо " +
-                                        "будет отправлять отчеты о состоянии кошки.");
-                        telegramBot.execute(receievedMenuCat2);
-                    }
-                    case "3" -> {
-                        SendMessage receievedMenuCat3 = new SendMessage(chatId,
-                                "Отправьте, пожалуйста, отчет в следуещем формате:" +
-                                        "в первом сообщении фото" +
-                                        "второе сообщение-условия" +
-                                        "третье сообщение-рацион" +
-                                        "четвертое сообщение-изменения");
-                        telegramBot.execute(receievedMenuCat3);
-                    }
+                }
+                case "2d" -> {
+                    SendMessage receievedMenuDog2 = new SendMessage(chatId,
+                            "Со всеми, кто желает взять собаку из приюта, наши волонтеры проводят личные встречи. " +
+                                    "После чего Вы выбираете питомца и забираете его к себе домой. В дальнейшем необходимо " +
+                                    "будет отправлять отчеты о состоянии собаки.");
+                    telegramBot.execute(receievedMenuDog2);
+                }
+                case "3d" -> {
+                    SendMessage receievedMenuDog3 = new SendMessage(chatId,
+                            "Отправьте, пожалуйста, отчет в следуещем формате:" +
+                                    "\nв первом сообщении фото собаки" +
+                                    "\nвторое сообщение-условия" +
+                                    "\nтретье сообщение-рацион" +
+                                    "\nчетвертое сообщение-изменения");
+                    telegramBot.execute(receievedMenuDog3);
+                }
+                case "cat" -> {
+                    SendMessage sendMenuCat = new SendMessage(chatId,
+                            "Какую услугу вы хотите получить?" +
+                                    "\nНапишите нужное для ответа:" +
+                                    "\n1с-Узнать информацию о приюте" +
+                                    "\n2с-Как взять кошку из приюта" +
+                                    "\n3с-Прислать отчет о питомце");
+                    telegramBot.execute(sendMenuCat);
+                }
+                case "1c" -> {
+                    SendMessage sendMessage1 = new SendMessage(chatId, "Наш приют 'Лапа' находится в г. Астана, ул. Аккорган, 5В. Работаем ежедневно 11:00-18:00." +
+                            "Здесь Вы сможете обрести себе друга - одного из наших чудесных" +
+                            "подопечных. У каждой кошки есть паспорт со всеми необходимыми вакцинами. " +
+                            "Вы можете оставить нам свои контактные данные для связи. Укажите Ваш телефон и имя " +
+                            "в формате: 81234567788 name");
+                    telegramBot.execute(sendMessage1);
+                }
+                case "2c" -> {
+                    SendMessage receievedMenuCat2 = new SendMessage(chatId,
+                            "Со всеми, кто желает взять кошку из приюта, наши волонтеры проводят личные встречи. " +
+                                    "После чего Вы выбираете питомца и забираете его к себе домой. В дальнейшем необходимо " +
+                                    "будет отправлять отчеты о состоянии кошки.");
+                    telegramBot.execute(receievedMenuCat2);
+                }
+                case "3c" -> {
+                    SendMessage receievedMenuCat3 = new SendMessage(chatId,
+                            "Отправьте, пожалуйста, отчет в следуещем формате:" +
+                                    "\nв первом сообщении фото кошки" +
+                                    "\nвторое сообщение-условия" +
+                                    "\nтретье сообщение-рацион" +
+                                    "\nчетвертое сообщение-изменения");
+                    telegramBot.execute(receievedMenuCat3);
                 }
             }
+
             if (matcherMessage.matches()) {
                 String phone = matcherMessage.group(1);
                 String name = matcherMessage.group(3);
                 Client client = new Client(chatId, phone, name, 0L, " ");
                 clientRepository.save(client);
             }
+
         });
         return UpdatesListener.CONFIRMED_UPDATES_ALL;
     }
