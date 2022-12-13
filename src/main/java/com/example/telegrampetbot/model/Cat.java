@@ -12,6 +12,11 @@ public class Cat {
     private Long id;
     private String name;
 
+    public Cat(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     @OneToOne
     @JoinColumn(name = "cat_photo_id")
     private CatPhoto catPhoto;

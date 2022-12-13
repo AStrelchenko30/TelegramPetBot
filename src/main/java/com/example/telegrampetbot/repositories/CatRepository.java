@@ -6,6 +6,10 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CatRepository extends JpaRepository<Cat, Long> {
+    Cat createCat(Cat cat);
+    Cat updateCat(Cat catNew);
+    Cat findCat(Long id);
 
+    void deleteCat(Long id);
 
 }

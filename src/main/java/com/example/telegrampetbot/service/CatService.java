@@ -5,7 +5,6 @@ import com.example.telegrampetbot.model.Cat;
 import com.example.telegrampetbot.repositories.CatRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,8 +18,8 @@ public class CatService {
     }
 
     public Cat createCat(Cat cat) {
-        logger.info("createPet method used in PetService");
-        if (!catRepository.findAll().contains(cat)) {
+        logger.info("createPet method used in CatService");
+        if(!catRepository.findAll().contains(cat)) {
             return catRepository.save(cat);
         }
         throw new CatNotFoundException();
