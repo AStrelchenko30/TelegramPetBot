@@ -18,7 +18,7 @@ public class Dog {
     }
 
     @ManyToOne (fetch = FetchType.LAZY)
-    @JoinColumn (name="id", insertable = false, updatable = false)
+    @JoinColumn (name="owner", insertable = false, updatable = false)
     private Client owner;
 
     public Dog() {
@@ -49,11 +49,4 @@ public class Dog {
         this.owner = client;
     }
 
-//    public DogPhoto getDogPhoto() {
-//        return dogPhoto;
-//    }
-//
-//    public void setDogPhoto(DogPhoto dogPhoto) {
-//        this.dogPhoto = dogPhoto;
-//    }
 }

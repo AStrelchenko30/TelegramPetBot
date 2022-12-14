@@ -8,16 +8,17 @@ import javax.persistence.*;
 @Entity
 public class Cat {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
 
-    @OneToOne
-    @JoinColumn(name = "cat_photo_id")
-    private CatPhoto catPhoto;
+    public Cat(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 
-    @ManyToOne (fetch = FetchType.LAZY)
-    @JoinColumn (name="ownerId", insertable = false, updatable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "owner", insertable = false, updatable = false)
     private Client owner;
 
     public Cat() {
@@ -48,11 +49,4 @@ public class Cat {
         this.owner = client;
     }
 
-    public CatPhoto getCatPhoto() {
-        return catPhoto;
-    }
-
-    public void setCatPhoto(CatPhoto catPhoto) {
-        this.catPhoto = catPhoto;
-    }
 }

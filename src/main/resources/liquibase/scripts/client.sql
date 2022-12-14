@@ -42,7 +42,7 @@ CREATE TABLE dog
 (
     id    int8 primary key not null,
     name  TEXT,
-    owner BIGSERIAL references client (id)
+    owner SERIAL references client (id)
 );
 
 

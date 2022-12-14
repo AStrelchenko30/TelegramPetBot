@@ -60,6 +60,7 @@ public class TelegramPetBotListener implements UpdatesListener {
             String textM = message.text();
             Matcher matcherMessage = patternMessage.matcher(message.text());
 
+//           Long idUser=update.message().contact().userId();
             switch (textM) {
                 case "/start" -> {
                     SendMessage sendMenuPet = new SendMessage(chatId,
@@ -140,7 +141,7 @@ public class TelegramPetBotListener implements UpdatesListener {
             if (matcherMessage.matches()) {
                 String phone = matcherMessage.group(1);
                 String name = matcherMessage.group(3);
-                Client client = new Client(chatId, phone, name, 0L, " ");
+                Client client = new Client(chatId, phone, name, 1L, " ");
                 clientRepository.save(client);
             }
 

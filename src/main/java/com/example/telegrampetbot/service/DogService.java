@@ -73,7 +73,6 @@ public class DogService {
      * Используется метод {@link JpaRepository#deleteById(Object)}
      *
      * @param id идентификатор нужного питомца
-     * @return удаленный питомец
      */
 
     public void deleteDog(Long id) {
