@@ -45,15 +45,29 @@ public class CatPhotoController {
         catPhotoService.uploadPhoto(catId, photo);
         return ResponseEntity.ok().build();
     }
+
+    @Operation(
+            summary = "Нахождение фото кошки по id",
+            responses =
+            @ApiResponse(
+                    responseCode = "200",
+                    description = " Фото, найденное по id",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE
+                    )
+            ),
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    description = "Фото найдено по id"
+            )
+    )
     /**
      * Find CatPhoto in Db by ID
      *
      * @return CatPhoto in BD
      */
     @GetMapping(params = {"catId"})
-    public ResponseEntity<CatPhoto> findPhotoCat(@PathVariable Long catId){
-        CatPhoto catPhoto=catPhotoService.findPhotoCat(catId);
+    public ResponseEntity<CatPhoto> findPhotoCat(@PathVariable Long catId) {
+        CatPhoto catPhoto = catPhotoService.findPhotoCat(catId);
         return ResponseEntity.ok(catPhoto);
     }
-
 }

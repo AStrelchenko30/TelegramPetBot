@@ -46,6 +46,20 @@ public class VolunteerController {
         return ResponseEntity.ok(createdVolunteer);
     }
 
+    @Operation(
+            summary = "Изменение данных о волонтере",
+            responses =
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Данные о волонтере изменены",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE
+                    )
+            ),
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    description = "Изменение данных о волонтере"
+            )
+    )
     /**
      * Update Volunteer in Db
      *
@@ -57,6 +71,20 @@ public class VolunteerController {
         return ResponseEntity.ok(updatedVolunteer);
     }
 
+    @Operation(
+            summary = "Нахождение волонтера по id",
+            responses =
+            @ApiResponse(
+                    responseCode = "200",
+                    description = " волонтер, найденный по id",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE
+                    )
+            ),
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    description = "волонтер найден по id"
+            )
+    )
     /**
      * Find Volunteer in Db by ID
      *
@@ -68,6 +96,20 @@ public class VolunteerController {
         return ResponseEntity.ok(findVolunteer);
     }
 
+    @Operation(
+            summary = "Удаление волонтера по id",
+            responses =
+            @ApiResponse(
+                    responseCode = "200",
+                    description = " Волонтер, удаленный по id",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE
+                    )
+            ),
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    description = "Волонтер удален по id"
+            )
+    )
     /**
      * Find Volunteer in Db and delete
      *
@@ -77,7 +119,4 @@ public class VolunteerController {
     public void deleteVolunteer(@PathVariable Long id) {
         volunteerService.deleteVolunteer(id);
     }
-
-
-
 }

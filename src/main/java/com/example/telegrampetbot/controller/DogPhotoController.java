@@ -45,6 +45,21 @@ public class DogPhotoController {
         dogPhotoService.uploadPhoto(dogId, photo);
         return ResponseEntity.ok().build();
     }
+
+    @Operation(
+            summary = "Нахождение фото собаки по id",
+            responses =
+            @ApiResponse(
+                    responseCode = "200",
+                    description = " Фото, найденное по id",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE
+                    )
+            ),
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    description = "Фото найдено по id"
+            )
+    )
     /**
      * Find DogPhoto in Db by ID
      *
@@ -55,6 +70,4 @@ public class DogPhotoController {
         DogPhoto findPhoto = dogPhotoService.findPhotoDog(dogId);
         return ResponseEntity.ok(findPhoto);
     }
-
-
 }

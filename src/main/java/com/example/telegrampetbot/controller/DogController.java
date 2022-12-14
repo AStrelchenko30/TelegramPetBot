@@ -22,17 +22,17 @@ public class DogController {
     }
 
     @Operation(
-            summary = "Добавление данных о питомце",
+            summary = "Добавление данных о dog",
             responses =
             @ApiResponse(
                     responseCode = "200",
-                    description = "Данные о питомце добавлены",
+                    description = "Данные о dog добавлены",
                     content = @Content(
                             mediaType = MediaType.APPLICATION_JSON_VALUE
                     )
             ),
             requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
-                    description = "Добавление данных о питомце"
+                    description = "Добавление данных о dog"
             )
     )
 
@@ -49,11 +49,41 @@ public class DogController {
      *
      * @return updatedDog
      */
+
+    @Operation(
+            summary = "Изменение данных о dog",
+            responses =
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Данные о dog изменены",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE
+                    )
+            ),
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    description = "Изменение данных о dog"
+            )
+    )
     @PutMapping
     public ResponseEntity<Dog> updateDog(@RequestBody Dog dogNew) {
         Dog updatedDog = dogService.updateDog(dogNew);
         return ResponseEntity.ok(updatedDog);
     }
+
+    @Operation(
+            summary = "Нахождение dog по id",
+            responses =
+            @ApiResponse(
+                    responseCode = "200",
+                    description = " dog, найденный по id",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE
+                    )
+            ),
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    description = "dog найден по id"
+            )
+    )
     /**
      * Find Dog in Db by ID
      *
@@ -65,6 +95,20 @@ public class DogController {
         return ResponseEntity.ok(findDog);
     }
 
+    @Operation(
+            summary = "Удаление dog по id",
+            responses =
+            @ApiResponse(
+                    responseCode = "200",
+                    description = " dog, удаленный по id",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE
+                    )
+            ),
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    description = "dog удален по id"
+            )
+    )
     /**
      * Find Dog in Db and delete
      * @param id

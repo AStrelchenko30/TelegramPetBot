@@ -45,6 +45,21 @@ public class CatController {
         return ResponseEntity.ok(createdCat);
     }
 
+
+    @Operation(
+            summary = "Изменение данных о cat",
+            responses =
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Данные о cat изменены",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE
+                    )
+            ),
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    description = "Изменение данных о cat"
+            )
+    )
     /**
      * Update Cat in Db
      *
@@ -56,6 +71,21 @@ public class CatController {
         return ResponseEntity.ok(updatedCat);
     }
 
+
+    @Operation(
+            summary = "Нахождение cat по id",
+            responses =
+            @ApiResponse(
+                    responseCode = "200",
+                    description = " cat, найденный по id",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE
+                    )
+            ),
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    description = "cat найден по id"
+            )
+    )
     /**
      * Find Cat in Db by ID
      *
@@ -67,6 +97,20 @@ public class CatController {
         return ResponseEntity.ok(findCat);
     }
 
+    @Operation(
+            summary = "Удаление cat по id",
+            responses =
+            @ApiResponse(
+                    responseCode = "200",
+                    description = " cat, удаленный по id",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE
+                    )
+            ),
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    description = "cat удален по id"
+            )
+    )
     /**
      * Find Cat in Db and delete
      *
@@ -76,6 +120,4 @@ public class CatController {
     public void deleteCat(@PathVariable Long id) {
         catService.deleteCat(id);
     }
-
-
 }
