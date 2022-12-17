@@ -1,8 +1,8 @@
-package com.example.telegrampetbot.controller;
+package com.example.telegrampetbot.service;
 
+import com.example.telegrampetbot.controller.VolunteerController;
 import com.example.telegrampetbot.model.Volunteer;
 import com.example.telegrampetbot.repositories.VolunteerRepository;
-import com.example.telegrampetbot.service.VolunteerService;
 import net.minidev.json.JSONObject;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -21,8 +21,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
-@WebMvcTest(controllers = VolunteerController.class)
-class VolunteerControllerTest {
+@WebMvcTest(controllers = VolunteerService.class)
+class VolunteerServiceTest {
 
     @Autowired
     public MockMvc mockMvc;

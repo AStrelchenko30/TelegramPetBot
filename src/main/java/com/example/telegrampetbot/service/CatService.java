@@ -37,7 +37,7 @@ public class CatService {
     }
 
     public Cat findCat(Long id) {
-        logger.info("findPet method used in PetService");
+        logger.info("findCat method used in CatService");
         if (catRepository.findById(id).isPresent()) {
             return catRepository.findById(id).get();
         }
@@ -45,7 +45,7 @@ public class CatService {
     }
 
     public void deleteCat(Long id) {
-        logger.info("deletePet method used in PetService");
+        logger.info("deleteCat method used in CatService");
         if (catRepository.findById(id).isPresent()) {
             catRepository.deleteById(id);
         }

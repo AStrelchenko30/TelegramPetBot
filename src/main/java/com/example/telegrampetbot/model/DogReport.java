@@ -14,6 +14,7 @@ public class DogReport {
     private String ration;
     private String changes;
 
+
     @OneToOne
     @JoinColumn(name = "id")
     private DogPhoto dogPhoto;
@@ -21,6 +22,15 @@ public class DogReport {
     @OneToOne (cascade = CascadeType.ALL)
     @JoinColumn(name = "id" ,referencedColumnName = "id")
     private Client client;
+
+    public DogReport(Long id, String condition, String ration, String changes) {
+        this.id = id;
+        this.condition = condition;
+        this.ration = ration;
+        this.changes = changes;
+    }
+
+
 
     public DogReport(){
     }

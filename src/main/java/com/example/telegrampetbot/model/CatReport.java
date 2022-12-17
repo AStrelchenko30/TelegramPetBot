@@ -22,6 +22,13 @@ public class CatReport {
     @JoinColumn(name = "id" ,referencedColumnName = "id")
     private Client client;
 
+    public CatReport(Long id, String condition, String ration, String changes) {
+        this.id = id;
+        this.condition = condition;
+        this.ration = ration;
+        this.changes = changes;
+    }
+
     public CatReport(){
     }
 

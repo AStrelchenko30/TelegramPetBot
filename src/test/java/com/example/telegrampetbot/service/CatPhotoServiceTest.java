@@ -1,9 +1,8 @@
-package com.example.telegrampetbot.controller;
+package com.example.telegrampetbot.service;
 
 import com.example.telegrampetbot.model.Cat;
 import com.example.telegrampetbot.model.CatPhoto;
 import com.example.telegrampetbot.repositories.CatPhotoRepository;
-import com.example.telegrampetbot.service.CatPhotoService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -33,7 +32,7 @@ class CatPhotoServiceTest {
     @Test
     void uploadPhoto() throws IOException {
         catPhotoService.uploadPhoto(catId, photo);
-        verify(catPhotoRepository).uploadPhoto(catId, photo);
+        verify(catPhotoService).uploadPhoto(catId, photo);
 
     }
 
@@ -42,6 +41,6 @@ class CatPhotoServiceTest {
         when(catPhotoRepository.findByCatId(catId)).thenReturn(Optional.ofNullable(newCatPhoto));
         final CatPhoto actual = catPhotoService.findPhotoCat(catId);
         assertEquals(newCat, actual);
-        verify(catPhotoRepository).findPhotoCat(catId);
+        verify(catPhotoService).findPhotoCat(catId);
     }
 }
