@@ -18,9 +18,6 @@ public interface CatPhotoRepository extends JpaRepository<CatPhoto, Long> {
      * @param catId
      * @return object of class Photo
      */
+
     Optional<CatPhoto> findByCatId(Long catId);
-
-//    void uploadPhoto(Long catId, MultipartFile photoFile) throws IOException;
-
-    Optional<CatPhoto> findById(Long catId);
 }

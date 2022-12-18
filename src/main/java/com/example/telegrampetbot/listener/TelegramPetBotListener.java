@@ -8,6 +8,8 @@ import com.pengrad.telegrambot.UpdatesListener;
 import com.pengrad.telegrambot.model.Message;
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.SendMessage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
@@ -32,6 +34,7 @@ public class TelegramPetBotListener implements UpdatesListener {
      * Search rule pattern
      */
     private final Pattern patternMessage = Pattern.compile("(^[0-9]{11})(\\s)([a-zA-Z]+$)");
+    private final Logger logger = LoggerFactory.getLogger(TelegramPetBotListener.class);
     @Autowired
     private final TelegramBot telegramBot;
 
@@ -55,12 +58,13 @@ public class TelegramPetBotListener implements UpdatesListener {
     @Override
     public int process(List<Update> updates) {
         updates.forEach(update -> {
+            logger.info("Processing update: {}", update);
             Message message = update.message();
             Long chatId = update.message().chat().id();
             String textM = message.text();
-            Matcher matcherMessage = patternMessage.matcher(message.text());
+            Matcher matcherMessage = patternMessage.matcher(textM);
+            String surName = update.message().from().lastName();
 
-//           Long idUser=update.message().contact().userId();
             switch (textM) {
                 case "/start" -> {
                     SendMessage sendMenuPet = new SendMessage(chatId,
@@ -129,7 +133,7 @@ public class TelegramPetBotListener implements UpdatesListener {
                 }
                 case "3c" -> {
                     SendMessage receievedMenuCat3 = new SendMessage(chatId,
-                            "Отправьте, пожалуйста, отчет в следуещем формате:" +
+                            "Отправьте, пожалуйста, отчет в следующем формате:" +
                                     "\nв первом сообщении фото кошки" +
                                     "\nвторое сообщение-условия" +
                                     "\nтретье сообщение-рацион" +
@@ -141,7 +145,7 @@ public class TelegramPetBotListener implements UpdatesListener {
             if (matcherMessage.matches()) {
                 String phone = matcherMessage.group(1);
                 String name = matcherMessage.group(3);
-                Client client = new Client(chatId, phone, name, 1L, " ");
+                Client client = new Client(chatId, phone, name, 0L, surName);
                 clientRepository.save(client);
             }
 

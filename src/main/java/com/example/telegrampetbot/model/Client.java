@@ -17,19 +17,18 @@ public class Client {
     private String surname;
     private String mail;
 
-    @OneToMany(mappedBy="id", fetch=FetchType.LAZY)
+    @OneToMany(mappedBy = "id", fetch = FetchType.LAZY)
     private Collection<Cat> cats;
 
-    @OneToMany(mappedBy="id", fetch=FetchType.LAZY)
+    @OneToMany(mappedBy = "id", fetch = FetchType.LAZY)
     private Collection<Dog> dogs;
 
     public Client(Long chatId, String mail, String name, Long passportNumber, String surname) {
         this.chatId = chatId;
-        this.name=name;
-        this.surname=surname;
+        this.name = name;
+        this.surname = surname;
         this.mail = mail;
-        this.passportNumber=passportNumber;
-
+        this.passportNumber = passportNumber;
     }
 
     public Client() {

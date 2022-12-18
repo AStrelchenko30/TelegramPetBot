@@ -2,7 +2,7 @@
 -- changeset sgorban:1
 CREATE TABLE client
 (
-    id              int4 primary key not null,
+    id              SERIAL primary key NOT NULL,
     chat_id         BIGINT,
     mail            TEXT,
     name            TEXT,
@@ -15,7 +15,7 @@ CREATE TABLE cat
 (
     id    int8 primary key not null,
     name  TEXT,
-    owner SERIAL references client (id)
+    owner int4 references client (id)
 );
 
 CREATE TABLE cat_photo
@@ -42,7 +42,7 @@ CREATE TABLE dog
 (
     id    int8 primary key not null,
     name  TEXT,
-    owner SERIAL references client (id)
+    owner int4 references client (id)
 );
 
 

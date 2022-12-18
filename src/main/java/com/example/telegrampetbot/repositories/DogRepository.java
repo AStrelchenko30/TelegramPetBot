@@ -10,8 +10,7 @@ import java.util.Optional;
 @Repository
 public interface DogRepository extends JpaRepository<Dog, Long> {
 
-    //    Dog createDog(Dog dog);
-   Optional <Dog> findById(Long id);
+    Optional <Dog> findById(Long id);
 
 
 }
