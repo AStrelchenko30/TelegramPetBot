@@ -9,41 +9,47 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class CatReportServiceTest {
-    CatReport report = new CatReport(1L, "", "", "");
+    CatReport report = new CatReport(1L, "dgg", "dgdg", "dgdg");
 
     @Mock
     private CatReportRepository repository;
 
+
     @InjectMocks
    private CatReportService service;
 
+
+
     @Test
     void createReport()throws ReportCreateException {
-        when(service.createReport(report)).thenReturn(new CatReport(1L, "", "", ""));
-        assertEquals(report.getId(), service.createReport(report).getId());
+        when(repository.save(report)).thenReturn(new CatReport(1L, "dgg", "dgdg", "dgdg"));
+        assertEquals(service.createReport(report).getId(),report.getId());
+
     }
 
     @Test
     void updateReport() throws ReportCreateException {
-        when(service.updateReport(report)).thenReturn(new CatReport(1L, "", "", ""));
-        assertEquals(report.getId(), service.updateReport(report).getId());
+        when(repository.save(report)).thenReturn(new CatReport(1L, "dgg", "dgdg", "dgdg"));
+        assertEquals(service.updateReport(report).getId(),report.getId());
     }
 
     @Test
     void findReport() throws ReportCreateException{
-        when(service.findReport(1L)).thenReturn(new CatReport(1L, "", "", ""));
-        assertEquals(report.getId(), service.findReport(1L).getId());
+        when(repository.findById(1L)).thenReturn(Optional.of(new CatReport(1L, "dgg", "dgdg", "dgdg")));
+        assertEquals(service.findReport(1L).getId(),report.getId());
     }
 
     @Test
     void deleteReport() throws ReportCreateException{
         service.deleteReport(1L);
-        verify(service).deleteReport(1L);
+        verify(repository).deleteById(1L);
     }
 }

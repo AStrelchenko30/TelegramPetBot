@@ -9,6 +9,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
@@ -24,32 +26,29 @@ class CatServiceTest {
 
     @Test
     void createCat() throws CatNotFoundException {
-        when(service.createCat(cat)).thenReturn((new Cat(1L, "Mur")));
-        Cat actualCat = new Cat(1L, "Mur");
-        assertEquals(service.createCat(cat).getName(), actualCat.getName());
+        when(catRepository.save(cat)).thenReturn((new Cat(1L, "Mur")));
+        assertEquals(service.createCat(cat).getName(), cat.getName());
 
     }
 
 
     @Test
     void updateCat() {
-        when(service.updateCat(cat)).thenReturn((new Cat(1L, "Mur")));
-        Cat actualCat = new Cat(1L, "Mur");
-        assertEquals(service.updateCat(cat).getName(), actualCat.getName());
-        verify(catRepository).save(cat);
+        when(catRepository.save(cat)).thenReturn((new Cat(1L, "Mur")));
+        assertEquals(service.updateCat(cat).getName(), cat.getName());
     }
 
     @Test
     void findCat() {
-        when(service.findCat(1L)).thenReturn((new Cat(1L, "Mur")));
-        assertEquals(cat.getName(), service.findCat(1L).getName());
+        when(catRepository.findById(1L)).thenReturn(Optional.of((new Cat(1L, "Mur"))));
+        assertEquals(service.findCat(1L).getName(),cat.getName());
 
     }
 
     @Test
     void deleteCat() {
-        service.deleteCat(isA(Long.class));
-        verify(service, times(1)).deleteCat(isA(Long.class));
+        service.deleteCat(1L);
+        verify(catRepository).deleteById(1L);
 
     }
 }

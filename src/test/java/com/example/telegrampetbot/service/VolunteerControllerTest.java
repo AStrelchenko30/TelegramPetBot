@@ -16,6 +16,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -55,6 +56,8 @@ class VolunteerServiceTest {
         when(volunteerService.createVolunteer(any(Volunteer.class))).thenReturn(volunteer);
         when(volunteerService.updateVolunteer(any(Volunteer.class))).thenReturn(volunteer);
         when(volunteerService.findVolunteer(eq(id))).thenReturn(volunteer);
+        volunteerService.deleteVolunteer(id);
+        verify(volunteerRepository).deleteById(id);
         mockMvc.perform(MockMvcRequestBuilders
                         .post("/volunteer")
                         .content(volunteerObject.toString())

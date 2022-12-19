@@ -8,6 +8,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -22,21 +24,21 @@ class DogReportServiceTest {
 
     @Test
     void createReport() {
-        when(service.createReport(report)).thenReturn(new DogReport(1L, "", "", ""));
-        assertEquals(report.getId(), service.createReport(report).getId());
+        when(repository.save(report)).thenReturn(new DogReport(1L, "", "", ""));
+        assertEquals(service.createReport(report).getId(),report.getId());
     }
 
     @Test
     void updateReport() {
-        when(service.updateReport(report)).thenReturn(new DogReport(1L, "", "", ""));
-        assertEquals(report.getId(), service.updateReport(report).getId());
+        when(repository.save(report)).thenReturn(new DogReport(1L, "", "", ""));
+        assertEquals(service.updateReport(report).getId(),report.getId());
 
     }
 
     @Test
     void findReport() {
-        when(service.findReport(1L)).thenReturn(new DogReport(1L, "", "", ""));
-        assertEquals(report.getId(), service.findReport(1L).getId());
+        when(repository.findById(1L)).thenReturn(Optional.of(new DogReport(1L, "", "", "")));
+        assertEquals(service.findReport(1L).getId(),report.getId());
     }
 
     @Test

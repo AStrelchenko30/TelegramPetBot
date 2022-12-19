@@ -10,6 +10,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -27,22 +29,21 @@ class ClientServiceTest {
 
     @Test
     void createClient() throws ClientCreateException {
-        when(service.createClient(client)).thenReturn(new Client(1L,"","",232332L,""));
+        when(repository.save(client)).thenReturn(new Client(1L,"","",232332L,""));
         assertEquals(service.createClient(client).getId(),client.getId());
     }
 
     @Test
     void updateClient() throws ClientNotFoundException {
-        when(service.updateClient(client)).thenReturn(new Client(1L,"","",232332L,""));
-        assertEquals(client.getId(),service.updateClient(client).getId());
-        verify(repository).save(client);
+        when(repository.save(client)).thenReturn(new Client(1L,"","",232332L,""));
+        assertEquals(service.updateClient(client).getId(),client.getId());
     }
 
     @Test
     void findClient() throws ClientNotFoundException {
-        when(service.findClient(1)).thenReturn(new Client(1L,"","",232332L,""));
-        assertEquals(client.getId(),service.findClient(1).getId());
-        verify(repository).findById(1);
+        when(repository.findById(1)).thenReturn(Optional.of(new Client(1L, "", "", 232332L, "")));
+        assertEquals(service.findClient(1).getId(),client.getId());
+
     }
 
     @Test

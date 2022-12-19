@@ -29,9 +29,9 @@ public class ClientService {
     public Client createClient(Client client) {
         logger.info("createClient method used in ClientService");
         if (!clientRepository.findAll().contains(client)) {
-            throw new ClientCreateException();
+            return clientRepository.save(client);
         }
-        return clientRepository.save(client);
+        throw new ClientCreateException();
     }
 
     /**

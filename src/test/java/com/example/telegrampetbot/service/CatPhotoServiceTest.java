@@ -32,15 +32,13 @@ class CatPhotoServiceTest {
     @Test
     void uploadPhoto() throws IOException {
         catPhotoService.uploadPhoto(catId, photo);
-        verify(catPhotoService).uploadPhoto(catId, photo);
+        verify(catPhotoRepository).save(newCatPhoto);
 
     }
 
     @Test
     void findPhotoCat() {
         when(catPhotoRepository.findByCatId(catId)).thenReturn(Optional.ofNullable(newCatPhoto));
-        final CatPhoto actual = catPhotoService.findPhotoCat(catId);
-        assertEquals(newCat, actual);
-        verify(catPhotoService).findPhotoCat(catId);
+        assertEquals(catPhotoService.findPhotoCat(catId), newCatPhoto);
     }
 }

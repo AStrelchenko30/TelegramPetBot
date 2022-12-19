@@ -9,6 +9,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.*;
@@ -24,26 +26,26 @@ class DogServiceTest {
 
     @Test
     void createDog() throws DogNotFoundException {
-        when(dogService.createDog(newDog)).thenReturn(new Dog(1L, "Gaf"));
+        when(dogRepository.save(newDog)).thenReturn(new Dog(1L, "Gaf"));
         assertEquals(dogService.createDog(newDog).getName(), newDog.getName());
     }
 
     @Test
     void updateDog() {
-        when(dogService.updateDog(newDog)).thenReturn(new Dog(1L, "Gaf"));
+        when(dogRepository.save(newDog)).thenReturn(new Dog(1L, "Gaf"));
         assertEquals(dogService.updateDog(newDog).getName(), newDog.getName());
     }
 
     @Test
     void findDog() {
-        when(dogService.findDog(1L)).thenReturn(new Dog(1L, "Gaf"));
+        when(dogRepository.findById(1L)).thenReturn(Optional.of(new Dog(1L, "Gaf")));
         assertEquals(dogService.findDog(1L).getName(), newDog.getName());
     }
 
     @Test
     void deleteDog() {
         dogService.deleteDog(isA(Long.class));
-        verify(dogService,times(1)).deleteDog(isA(Long.class));
+        verify(dogRepository,times(1)).deleteById(isA(Long.class));
 
     }
 }
