@@ -1,5 +1,6 @@
 package com.example.telegrampetbot.model;
 
+import com.pengrad.telegrambot.model.PhotoSize;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
