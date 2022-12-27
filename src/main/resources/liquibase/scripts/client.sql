@@ -58,7 +58,7 @@ CREATE TABLE dog_photo
 
 CREATE TABLE dog_report
 (
-    id        int8 primary key not null,
+    id        BIGSERIAL primary key not null,
     condition TEXT,
     ration    TEXT,
     changes   TEXT,

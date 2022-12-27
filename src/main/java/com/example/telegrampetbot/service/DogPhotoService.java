@@ -5,7 +5,6 @@ import com.example.telegrampetbot.model.Dog;
 import com.example.telegrampetbot.model.DogPhoto;
 import com.example.telegrampetbot.repositories.DogRepository;
 import com.example.telegrampetbot.repositories.DogPhotoRepository;
-import com.pengrad.telegrambot.model.PhotoSize;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;

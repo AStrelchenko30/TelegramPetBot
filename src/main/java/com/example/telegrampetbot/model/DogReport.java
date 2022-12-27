@@ -16,11 +16,11 @@ public class DogReport {
 
 
     @OneToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "dogPhoto")
     private DogPhoto dogPhoto;
 
-    @OneToOne (cascade = CascadeType.ALL)
-    @JoinColumn(name = "id" ,referencedColumnName = "id")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id", referencedColumnName = "id")
     private Client client;
 
     public DogReport(Long id, String condition, String ration, String changes) {
@@ -29,16 +29,13 @@ public class DogReport {
         this.ration = ration;
         this.changes = changes;
     }
-
-
-
-    public DogReport(){
+    public DogReport() {
     }
-
 
     public Long getId() {
         return id;
     }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -46,6 +43,7 @@ public class DogReport {
     public Client getClient() {
         return client;
     }
+
     public void setClient(Client client) {
         client = client;
     }
@@ -53,6 +51,7 @@ public class DogReport {
     public String getCondition() {
         return condition;
     }
+
     public void setCondition(String condition) {
         this.condition = condition;
     }
@@ -60,6 +59,7 @@ public class DogReport {
     public String getRation() {
         return ration;
     }
+
     public void setRation(String ration) {
         this.ration = ration;
     }
@@ -67,6 +67,7 @@ public class DogReport {
     public String getChanges() {
         return changes;
     }
+
     public void setChanges(String changes) {
         this.changes = changes;
     }

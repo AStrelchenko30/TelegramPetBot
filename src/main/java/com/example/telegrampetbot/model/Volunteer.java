@@ -23,12 +23,8 @@ public class Volunteer {
         this.surname = surname;
         this.mail = mail;
     }
-
     public Volunteer(){
     }
-
-
-
     public Long getId() {
         return id;
     }

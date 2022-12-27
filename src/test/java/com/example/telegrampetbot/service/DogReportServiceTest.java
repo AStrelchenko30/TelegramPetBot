@@ -16,7 +16,7 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class DogReportServiceTest {
-    DogReport report = new DogReport(1L, "", "", "");
+    DogReport report = new DogReport();
     @Mock
     private DogReportRepository repository;
     @InjectMocks
@@ -24,21 +24,21 @@ class DogReportServiceTest {
 
     @Test
     void createReport() {
-        when(repository.save(report)).thenReturn(new DogReport(1L, "", "", ""));
-        assertEquals(service.createReport(report).getId(),report.getId());
+        when(service.createReport(report)).thenReturn(new DogReport());
+        assertEquals(report.getId(), service.createReport(report).getId());
     }
 
     @Test
     void updateReport() {
-        when(repository.save(report)).thenReturn(new DogReport(1L, "", "", ""));
-        assertEquals(service.updateReport(report).getId(),report.getId());
+        when(service.updateReport(report)).thenReturn(new DogReport());
+        assertEquals(report.getId(), service.updateReport(report).getId());
 
     }
 
     @Test
     void findReport() {
-        when(repository.findById(1L)).thenReturn(Optional.of(new DogReport(1L, "", "", "")));
-        assertEquals(service.findReport(1L).getId(),report.getId());
+        when(service.findReport(1L)).thenReturn(new DogReport());
+        assertEquals(report.getId(), service.findReport(1L).getId());
     }
 
     @Test
