@@ -9,10 +9,10 @@ import javax.persistence.*;
 public class Dog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
     private String name;
 
-    public Dog(Long id, String name) {
+    public Dog(Integer id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -25,11 +25,11 @@ public class Dog {
     }
 
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

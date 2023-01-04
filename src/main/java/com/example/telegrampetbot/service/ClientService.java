@@ -45,11 +45,10 @@ public class ClientService {
         logger.info("updateClient method used in ClientService");
         if (clientRepository.findById(clientNew.getId()).isPresent()) {
             Client clientOld = clientRepository.findById(clientNew.getId()).get();
-            clientOld.setPassportNumber(clientNew.getPassportNumber());
             clientOld.setChatId(clientNew.getChatId());
             clientOld.setName(clientNew.getName());
             clientOld.setSurname(clientNew.getSurname());
-            clientOld.setMail(clientNew.getMail());
+            clientOld.setPhone(clientNew.getPhone());
             return clientRepository.save(clientOld);
         }
         throw new ClientNotFoundException();

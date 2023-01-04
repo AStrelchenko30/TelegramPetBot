@@ -26,25 +26,25 @@ public class DogPhotoController {
         this.dogPhotoService = dogPhotoService;
     }
 
-    @Operation(summary = "Добавление фото",
-            responses =
-            @ApiResponse(
-                    responseCode = "200",
-                    description = "Фото собаки добавлено",
-                    content = @Content(
-                            mediaType = MediaType.APPLICATION_JSON_VALUE
-                    )
-            )
-    )
-
-    /**
-     * Post request to create a photo
-     */
-    @PostMapping(value = "/{dogId}/photo", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<String> uploadPhoto(@Parameter(description = "Укажите ID собаки") @PathVariable Long dogId, @Parameter(description = "Загрузите фото собаки") @RequestParam(name = "Фото собаки") MultipartFile photo) throws IOException {
-        dogPhotoService.uploadPhoto(dogId, photo);
-        return ResponseEntity.ok().build();
-    }
+//    @Operation(summary = "Добавление фото",
+//            responses =
+//            @ApiResponse(
+//                    responseCode = "200",
+//                    description = "Фото собаки добавлено",
+//                    content = @Content(
+//                            mediaType = MediaType.APPLICATION_JSON_VALUE
+//                    )
+//            )
+//    )
+//
+//    /**
+//     * Post request to create a photo
+//     */
+//    @PostMapping(value = "/{dogId}/photo", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+//    public ResponseEntity<String> uploadPhoto(@Parameter(description = "Укажите ID собаки") @PathVariable Integer dogId, @Parameter(description = "Загрузите фото собаки") @RequestParam(name = "Фото собаки") MultipartFile photo) throws IOException {
+//        dogPhotoService.uploadPhoto(dogId, photo);
+//        return ResponseEntity.ok().build();
+//    }
 
     @Operation(
             summary = "Нахождение фото собаки по id",
@@ -66,7 +66,7 @@ public class DogPhotoController {
      * @return DogPhoto in BD
      */
     @GetMapping(params = {"dogId"})
-    public ResponseEntity<DogPhoto> findPhotoDog(@PathVariable Long dogId) {
+    public ResponseEntity<DogPhoto> findPhotoDog(@PathVariable Integer dogId) {
         DogPhoto findPhoto = dogPhotoService.findPhotoDog(dogId);
         return ResponseEntity.ok(findPhoto);
     }

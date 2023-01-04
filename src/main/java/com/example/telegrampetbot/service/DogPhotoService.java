@@ -41,7 +41,7 @@ public class DogPhotoService {
      * @param photoFile dog image file
      * @throws IOException
      */
-    public void uploadPhoto(Long dogId, MultipartFile photoFile) throws IOException {
+    public void uploadPhoto(Integer dogId, MultipartFile photoFile) throws IOException {
         Dog dog = dogRepository.getById(dogId);
         Path filePath = Path.of(photoDir, dog + "." + getExtensions(Objects.requireNonNull(photoFile.getOriginalFilename())));
         Files.createDirectories(filePath.getParent());
@@ -56,14 +56,11 @@ public class DogPhotoService {
         }
         DogPhoto dogPhoto = findPhotoDog(dogId);
         dogPhoto.setDog(dog);
-        dogPhoto.setFilePath(filePath.toString());
-        dogPhoto.setFileSize(photoFile.getSize());
-        dogPhoto.setMediaType(photoFile.getContentType());
         dogPhoto.setData(photoFile.getBytes());
         dogPhotoRepository.save(dogPhoto);
     }
 
-    public DogPhoto findPhotoDog(Long dogId) {
+    public DogPhoto findPhotoDog(Integer dogId) {
         if (dogPhotoRepository.findById(dogId).isPresent()) {
             return dogPhotoRepository.findByDogId(dogId).orElse(new DogPhoto());
         }

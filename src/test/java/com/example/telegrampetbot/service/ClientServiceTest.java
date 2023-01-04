@@ -10,6 +10,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.sql.Timestamp;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -25,23 +26,23 @@ class ClientServiceTest {
     @InjectMocks
     private ClientService service;
 
-    Client client=new Client(1L,"","",232332L,"");
+    Client client=new Client(1L,"","","",new Timestamp(System.currentTimeMillis()));
 
     @Test
     void createClient() throws ClientCreateException {
-        when(repository.save(client)).thenReturn(new Client(1L,"","",232332L,""));
+        when(repository.save(client)).thenReturn(new Client(1L,"","","",new Timestamp(System.currentTimeMillis())));
         assertEquals(service.createClient(client).getId(),client.getId());
     }
 
     @Test
     void updateClient() throws ClientNotFoundException {
-        when(repository.save(client)).thenReturn(new Client(1L,"","",232332L,""));
+        when(repository.save(client)).thenReturn(new Client(1L,"","","",new Timestamp(System.currentTimeMillis())));
         assertEquals(service.updateClient(client).getId(),client.getId());
     }
 
     @Test
     void findClient() throws ClientNotFoundException {
-        when(repository.findById(1)).thenReturn(Optional.of(new Client(1L, "", "", 232332L, "")));
+        when(repository.findById(1)).thenReturn(Optional.of(new Client(1L, "", "",  "",new Timestamp(System.currentTimeMillis()))));
         assertEquals(service.findClient(1).getId(),client.getId());
 
     }

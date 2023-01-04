@@ -90,7 +90,7 @@ public class DogController {
      * @return Dog in BD
      */
     @GetMapping(params = {"id"})
-    public ResponseEntity<Dog> findDog(@PathVariable Long id) {
+    public ResponseEntity<Dog> findDog(@PathVariable Integer id) {
         Dog findDog = dogService.findDog(id);
         return ResponseEntity.ok(findDog);
     }
@@ -114,7 +114,7 @@ public class DogController {
      * @param id
      */
     @DeleteMapping(params = {"id"})
-    public void deleteDog(@PathVariable Long id) {
+    public void deleteDog(@PathVariable Integer id) {
         dogService.deleteDog(id);
     }
 

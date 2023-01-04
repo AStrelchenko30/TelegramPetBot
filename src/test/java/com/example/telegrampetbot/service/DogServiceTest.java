@@ -17,7 +17,7 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class DogServiceTest {
-    Dog newDog = new Dog(1L, "Gaf");
+    Dog newDog = new Dog(1, "Gaf");
 
     @Mock
     private DogRepository dogRepository;
@@ -26,26 +26,26 @@ class DogServiceTest {
 
     @Test
     void createDog() throws DogNotFoundException {
-        when(dogRepository.save(newDog)).thenReturn(new Dog(1L, "Gaf"));
+        when(dogRepository.save(newDog)).thenReturn(new Dog(1, "Gaf"));
         assertEquals(dogService.createDog(newDog).getName(), newDog.getName());
     }
 
     @Test
     void updateDog() {
-        when(dogRepository.save(newDog)).thenReturn(new Dog(1L, "Gaf"));
+        when(dogRepository.save(newDog)).thenReturn(new Dog(1, "Gaf"));
         assertEquals(dogService.updateDog(newDog).getName(), newDog.getName());
     }
 
     @Test
     void findDog() {
-        when(dogRepository.findById(1L)).thenReturn(Optional.of(new Dog(1L, "Gaf")));
-        assertEquals(dogService.findDog(1L).getName(), newDog.getName());
+        when(dogRepository.findById(1)).thenReturn(Optional.of(new Dog(1, "Gaf")));
+        assertEquals(dogService.findDog(1).getName(), newDog.getName());
     }
 
     @Test
     void deleteDog() {
-        dogService.deleteDog(isA(Long.class));
-        verify(dogRepository,times(1)).deleteById(isA(Long.class));
+        dogService.deleteDog(isA(Integer.class));
+        verify(dogRepository,times(1)).deleteById(isA(Integer.class));
 
     }
 }

@@ -22,7 +22,7 @@ import static org.mockito.Mockito.verify;
 class DogPhotoServiceTest {
     Dog newDog = Mockito.mock(Dog.class);
     MultipartFile photo=Mockito.mock(MultipartFile.class);
-    Long dogId=newDog.getId();
+    Integer dogId=newDog.getId();
     DogPhoto dogPhoto=mock(DogPhoto.class);
 
 

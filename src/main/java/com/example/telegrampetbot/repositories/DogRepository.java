@@ -8,9 +8,6 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface DogRepository extends JpaRepository<Dog, Long> {
-
-    Optional <Dog> findById(Long id);
-
-
+public interface DogRepository extends JpaRepository<Dog, Integer> {
+    Optional <Dog> findById(Integer id);
 }

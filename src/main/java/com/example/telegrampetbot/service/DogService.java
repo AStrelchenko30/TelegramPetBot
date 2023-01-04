@@ -60,7 +60,7 @@ public class DogService {
      * @return найденный питомец
      */
 
-    public Dog findDog(Long id) {
+    public Dog findDog(Integer id) {
         logger.info("findPet method used in PetService");
         if (dogRepository.findById(id).isPresent()) {
             return dogRepository.findById(id).get();
@@ -75,7 +75,7 @@ public class DogService {
      * @param id идентификатор нужного питомца
      */
 
-    public void deleteDog(Long id) {
+    public void deleteDog(Integer id) {
         logger.info("deletePet method used in PetService");
         if (dogRepository.findById(id).isPresent()) {
             dogRepository.deleteById(id);

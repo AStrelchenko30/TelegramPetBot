@@ -1,6 +1,7 @@
 package com.example.telegrampetbot.model;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.Collection;
 
 /**
@@ -11,11 +12,11 @@ public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private Long passportNumber;
+    private Timestamp timeRegistered;
     private Long chatId;
     private String name;
     private String surname;
-    private String mail;
+    private String phone;
 
     @OneToMany(mappedBy = "id", fetch = FetchType.LAZY)
     private Collection<Cat> cats;
@@ -23,12 +24,12 @@ public class Client {
     @OneToMany(mappedBy = "id", fetch = FetchType.LAZY)
     private Collection<Dog> dogs;
 
-    public Client(Long chatId, String mail, String name, Long passportNumber, String surname) {
+    public Client(Long chatId, String phone, String name, String surname, Timestamp timeRegistered) {
         this.chatId = chatId;
         this.name = name;
         this.surname = surname;
-        this.mail = mail;
-        this.passportNumber = passportNumber;
+        this.phone = phone;
+        this.timeRegistered=timeRegistered;
     }
 
     public Client() {
@@ -40,14 +41,6 @@ public class Client {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Long getPassportNumber() {
-        return passportNumber;
-    }
-
-    public void setPassportNumber(Long passportNumber) {
-        this.passportNumber = passportNumber;
     }
 
     public Long getChatId() {
@@ -74,11 +67,19 @@ public class Client {
         this.surname = surname;
     }
 
-    public String getMail() {
-        return mail;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setMail(String mail) {
-        this.mail = mail;
+    public void setPhone(String mail) {
+        this.phone = mail;
+    }
+
+    public Timestamp getTimeRegistered() {
+        return timeRegistered;
+    }
+
+    public void setTimeRegistered(Timestamp timeRegistered) {
+        this.timeRegistered = timeRegistered;
     }
 }

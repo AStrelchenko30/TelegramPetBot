@@ -10,11 +10,11 @@ import java.util.Optional;
  * Repository for working with photo storage
  */
 @Repository
-public interface DogPhotoRepository extends JpaRepository<DogPhoto, Long> {
+public interface DogPhotoRepository extends JpaRepository<DogPhoto, Integer> {
     /**
      * Photo search method by pet id
      * @param dogId
      * @return object of class Photo
      */
-    Optional<DogPhoto> findByDogId(Long dogId);
+    Optional<DogPhoto> findByDogId(Integer dogId);
 }

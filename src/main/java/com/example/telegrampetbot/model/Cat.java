@@ -24,7 +24,6 @@ public class Cat {
     public Cat() {
     }
 
-
     public Long getId() {
         return id;
     }
