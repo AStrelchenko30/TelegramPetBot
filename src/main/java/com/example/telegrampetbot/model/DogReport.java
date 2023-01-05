@@ -45,7 +45,7 @@ public class DogReport {
     }
 
     public void setClient(Client client) {
-        client = client;
+        this.client = client;
     }
 
     public String getCondition() {

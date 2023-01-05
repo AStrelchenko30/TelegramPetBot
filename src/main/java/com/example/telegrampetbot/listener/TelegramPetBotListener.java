@@ -69,8 +69,7 @@ public class TelegramPetBotListener implements UpdatesListener {
             Message message = update.message();
             Long chatId = update.message().chat().id();
             String textM = message.text();
-            Client client = clientRepository.findByChatId(update.message().chat().id()).get();
-
+            Client client = clientRepository.findByChatId(update.message().chat().id());
             DogPhoto dogPhoto = new DogPhoto();
             DogReport dogReport = new DogReport();
 
@@ -106,7 +105,7 @@ public class TelegramPetBotListener implements UpdatesListener {
                                     "Здесь Вы сможете обрести себе друга - одного из наших чудесных" +
                                     "подопечных. У каждой собаки есть паспорт со всеми необходимыми вакцинами. " +
                                     "Вы можете оставить нам свои контактные данные для связи. Укажите Ваш телефон и имя " +
-                                    "в формате: 81234567788 name");
+                                    "в формате: 81234567788");
                             telegramBot.execute(sendMessage1);
 
                         }
@@ -164,7 +163,6 @@ public class TelegramPetBotListener implements UpdatesListener {
 
                     if (textM.contains("условия")) {
                         dogReport.setCondition(textM);
-                        dogReport.setClient(client);
                     } else if (textM.contains("рацион")) {
                         dogReport.setRation(textM);
                     } else if (textM.contains("изменения")) {
@@ -177,11 +175,10 @@ public class TelegramPetBotListener implements UpdatesListener {
                         try {
                             GetFileResponse getFileResponse = telegramBot.execute(new GetFile(photoSize.fileId()));
                             byte[] bytes = telegramBot.getFileContent(getFileResponse.file());
-//                            String filePath = getFileResponse.file().filePath();
-//                            String extension = filePath.substring(filePath.lastIndexOf('.'));
                             dogPhoto.setData(bytes);
                             dogReport.setDogPhoto(dogPhoto);
                             dogPhotoRepository.save(dogPhoto);
+
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -189,12 +186,13 @@ public class TelegramPetBotListener implements UpdatesListener {
                 }
                 dogReportRepository.save(dogReport);
             }
+
         });
         return UpdatesListener.CONFIRMED_UPDATES_ALL;
     }
 
     private void registerClient(Message msg) {
-        if (clientRepository.findByChatId(msg.chat().id()).isEmpty()) {
+        if (clientRepository.findByChatId(msg.chat().id()) == null) {
             Long chatId = msg.chat().id();
             Chat chat = msg.chat();
             Client client = new Client();

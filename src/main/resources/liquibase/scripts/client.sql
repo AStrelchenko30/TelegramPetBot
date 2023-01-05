@@ -69,4 +69,3 @@ CREATE TABLE volunteer
     surname TEXT,
     mail    TEXT
 );
-
