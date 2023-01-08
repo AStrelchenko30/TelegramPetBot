@@ -21,9 +21,6 @@ CREATE TABLE cat
 CREATE TABLE cat_photo
 (
     id         int8 primary key not null,
-    file_path  TEXT,
-    file_size  BIGINT,
-    media_type TEXT,
     data       bytea,
     cat_id     BIGSERIAL references cat (id)
 );

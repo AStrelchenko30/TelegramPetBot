@@ -10,4 +10,5 @@ import java.util.Optional;
 @Repository
 public interface DogRepository extends JpaRepository<Dog, Integer> {
     Optional <Dog> findById(Integer id);
+    Dog findByNameIgnoreCase(String name);
 }

@@ -19,7 +19,7 @@ public class DogReport {
     @JoinColumn(name = "dogPhoto")
     private DogPhoto dogPhoto;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne (cascade = CascadeType.ALL)
     @JoinColumn(name = "id", referencedColumnName = "id")
     private Client client;
 

@@ -56,9 +56,9 @@ public class CatPhotoService {
         }
         CatPhoto catPhoto = findPhotoCat(catId);
         catPhoto.setCat(cat);
-        catPhoto.setFilePath(filePath.toString());
-        catPhoto.setFileSize(photoFile.getSize());
-        catPhoto.setMediaType(photoFile.getContentType());
+//        catPhoto.setFilePath(filePath.toString());
+//        catPhoto.setFileSize(photoFile.getSize());
+//        catPhoto.setMediaType(photoFile.getContentType());
         catPhoto.setData(photoFile.getBytes());
         catPhotoRepository.save(catPhoto);
     }
