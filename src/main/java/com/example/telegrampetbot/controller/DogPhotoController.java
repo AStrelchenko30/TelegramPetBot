@@ -25,27 +25,6 @@ public class DogPhotoController {
     public DogPhotoController(DogPhotoService dogPhotoService) {
         this.dogPhotoService = dogPhotoService;
     }
-
-//    @Operation(summary = "Добавление фото",
-//            responses =
-//            @ApiResponse(
-//                    responseCode = "200",
-//                    description = "Фото собаки добавлено",
-//                    content = @Content(
-//                            mediaType = MediaType.APPLICATION_JSON_VALUE
-//                    )
-//            )
-//    )
-//
-//    /**
-//     * Post request to create a photo
-//     */
-//    @PostMapping(value = "/{dogId}/photo", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-//    public ResponseEntity<String> uploadPhoto(@Parameter(description = "Укажите ID собаки") @PathVariable Integer dogId, @Parameter(description = "Загрузите фото собаки") @RequestParam(name = "Фото собаки") MultipartFile photo) throws IOException {
-//        dogPhotoService.uploadPhoto(dogId, photo);
-//        return ResponseEntity.ok().build();
-//    }
-
     @Operation(
             summary = "Нахождение фото собаки по id",
             responses =
