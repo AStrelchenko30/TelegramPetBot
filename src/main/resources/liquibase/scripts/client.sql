@@ -2,7 +2,7 @@
 -- changeset sgorban:1
 CREATE TABLE client
 (
-    id              SERIAL primary key NOT NULL,
+    id              SERIAL primary key not null,
     chat_id         BIGINT,
     phone            TEXT,
     name            TEXT,
@@ -65,4 +65,10 @@ CREATE TABLE volunteer
     name    TEXT,
     surname TEXT,
     mail    TEXT
+);
+CREATE TABLE condition
+(
+    id SERIAL primary key not null,
+    chat_id int8,
+    condition_for_report int4
 );

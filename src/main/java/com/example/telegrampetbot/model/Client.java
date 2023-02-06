@@ -24,12 +24,13 @@ public class Client {
     @OneToMany(mappedBy = "id", fetch = FetchType.LAZY)
     private Collection<Dog> dogs;
 
-    public Client(Long chatId, String phone, String name, String surname, Timestamp timeRegistered) {
+    public Client(Integer id, Long chatId, String phone, String name, String surname, Timestamp timeRegistered) {
         this.chatId = chatId;
         this.name = name;
         this.surname = surname;
         this.phone = phone;
-        this.timeRegistered=timeRegistered;
+        this.timeRegistered = timeRegistered;
+        this.id = id;
     }
 
     public Client() {

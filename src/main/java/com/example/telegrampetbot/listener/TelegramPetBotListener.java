@@ -20,6 +20,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static org.apache.coyote.http11.Constants.a;
+
 /**
  * Message handling class
  */
@@ -27,24 +29,34 @@ import java.util.regex.Pattern;
 public class TelegramPetBotListener implements UpdatesListener {
     public ClientRepository clientRepository;
     public DogRepository dogRepository;
+    public CatRepository catRepository;
     public DogPhotoRepository dogPhotoRepository;
     public CatPhotoRepository catPhotoRepository;
     public DogReportRepository dogReportRepository;
+    public CatReportRepository catReportRepository;
+    public ConditionRepository conditionRepository;
+    public int condition = 0;
 
     /**
      * Search rule pattern
      */
     private final Pattern patternMessage = Pattern.compile("(^[0-9]{11})");
     private final Logger logger = LoggerFactory.getLogger(TelegramPetBotListener.class);
+
+
     @Autowired
     private final TelegramBot telegramBot;
 
-    public TelegramPetBotListener(ClientRepository clientRepository, DogRepository dogRepository, TelegramBot telegramBot, DogReportRepository dogReportRepository, DogPhotoRepository dogPhotoRepository) {
+    public TelegramPetBotListener(ClientRepository clientRepository, DogRepository dogRepository, TelegramBot telegramBot, DogReportRepository dogReportRepository, DogPhotoRepository dogPhotoRepository, CatReportRepository catReportRepository, CatPhotoRepository catPhotoRepository, CatRepository catRepository, ConditionRepository conditionRepository) {
         this.clientRepository = clientRepository;
         this.dogRepository = dogRepository;
         this.telegramBot = telegramBot;
         this.dogReportRepository = dogReportRepository;
         this.dogPhotoRepository = dogPhotoRepository;
+        this.conditionRepository = conditionRepository;
+        this.catReportRepository = catReportRepository;
+        this.catPhotoRepository = catPhotoRepository;
+        this.catRepository = catRepository;
     }
 
     @PostConstruct
@@ -60,14 +72,17 @@ public class TelegramPetBotListener implements UpdatesListener {
      */
     @Override
     public int process(List<Update> updates) {
-        updates.forEach(update -> {
+        for (Update update : updates) {
+
             logger.info("Processing update: {}", update);
             Message message = update.message();
             Long chatId = update.message().chat().id();
             String textM = message.text();
+            registerClient(update.message());
             Client client = clientRepository.findByChatId(update.message().chat().id());
             DogPhoto dogPhoto = new DogPhoto();
             DogReport dogReport = new DogReport();
+            Condition conditionStatus = new Condition();
 
             CatPhoto catPhoto = new CatPhoto();
             CatReport catReport = new CatReport();
@@ -82,16 +97,15 @@ public class TelegramPetBotListener implements UpdatesListener {
                     }
 
                     switch (textM) {
-                        case "/start":
-                            registerClient(update.message());
+                        case "/start" -> {
                             SendMessage sendMenuPet = new SendMessage(chatId,
                                     "Приветствуем Вас в нашем телеграм-боте." +
                                             "\n Для выбора приюта для собак, введите Dog" +
                                             "\n Для выбора приюта для кошек, введите Cat");
                             telegramBot.execute(sendMenuPet);
-
-                            break;
-                        case "Dog":
+                            condition = 0;
+                        }
+                        case "Dog" -> {
                             SendMessage sendMenu = new SendMessage(chatId,
                                     "Какую услугу вы хотите получить?" +
                                             "\nНапишите нужное для ответа:" +
@@ -99,23 +113,26 @@ public class TelegramPetBotListener implements UpdatesListener {
                                             "\n2d-Как взять собаку из приюта" +
                                             "\n3d-Прислать отчет о питомце");
                             telegramBot.execute(sendMenu);
-                            break;
-                        case "1d":
+                            condition = 0;
+                        }
+                        case "1d" -> {
                             SendMessage sendMessage1Dog = new SendMessage(chatId, "Наш приют 'Лапа' находится в г. Астана, ул. Аккорган, 5Б. Работаем ежедневно 10:00-17:00." +
                                     "Здесь Вы сможете обрести себе друга - одного из наших чудесных" +
                                     "подопечных. У каждой собаки есть паспорт со всеми необходимыми вакцинами. " +
                                     "Вы можете оставить нам свои контактные данные для связи. Укажите Ваш телефон и имя " +
                                     "в формате: 81234567788");
                             telegramBot.execute(sendMessage1Dog);
-                            break;
-                        case "2d":
+                            condition = 0;
+                        }
+                        case "2d" -> {
                             SendMessage receievedMenuDog2 = new SendMessage(chatId,
                                     "Со всеми, кто желает взять собаку из приюта, наши волонтеры проводят личные встречи. " +
                                             "После чего Вы выбираете питомца и забираете его к себе домой. В дальнейшем необходимо " +
                                             "будет отправлять отчеты о состоянии собаки.");
                             telegramBot.execute(receievedMenuDog2);
-                            break;
-                        case "3d":
+                            condition = 0;
+                        }
+                        case "3d" -> {
                             SendMessage receievedMenuDog3 = new SendMessage(chatId,
                                     "Отправьте, пожалуйста, отчет в следуещем формате:" +
                                             "\nв первом сообщении фото собаки" +
@@ -123,8 +140,9 @@ public class TelegramPetBotListener implements UpdatesListener {
                                             "\nтретье сообщение-начинается словом-'Рацион собаки'" +
                                             "\nчетвертое сообщение-Изменения собаки");
                             telegramBot.execute(receievedMenuDog3);
-                            break;
-                        case "Cat":
+                            condition = 0;
+                        }
+                        case "Cat" -> {
                             SendMessage sendMenuCat = new SendMessage(chatId,
                                     "Какую услугу вы хотите получить?" +
                                             "\nНапишите нужное для ответа:" +
@@ -132,24 +150,26 @@ public class TelegramPetBotListener implements UpdatesListener {
                                             "\n2с-Как взять кошку из приюта" +
                                             "\n3с-Прислать отчет о питомце");
                             telegramBot.execute(sendMenuCat);
-                            break;
-                        case "1c":
+                            condition = 0;
+                        }
+                        case "1c" -> {
                             SendMessage sendMessage1Cat = new SendMessage(chatId, "Наш приют 'Лапа' находится в г. Астана, ул. Аккорган, 5В. Работаем ежедневно 11:00-18:00." +
                                     "Здесь Вы сможете обрести себе друга - одного из наших чудесных" +
                                     "подопечных. У каждой кошки есть паспорт со всеми необходимыми вакцинами. " +
                                     "Вы можете оставить нам свои контактные данные для связи. Укажите Ваш телефон и имя " +
                                     "в формате: 81234567788");
                             telegramBot.execute(sendMessage1Cat);
-
-                            break;
-                        case "2c":
+                            condition = 0;
+                        }
+                        case "2c" -> {
                             SendMessage receievedMenuCat2 = new SendMessage(chatId,
                                     "Со всеми, кто желает взять кошку из приюта, наши волонтеры проводят личные встречи. " +
                                             "После чего Вы выбираете питомца и забираете его к себе домой. В дальнейшем необходимо " +
                                             "будет отправлять отчеты о состоянии кошки.");
                             telegramBot.execute(receievedMenuCat2);
-                            break;
-                        case "3c":
+                            condition = 0;
+                        }
+                        case "3c" -> {
                             SendMessage receievedMenuCat3 = new SendMessage(chatId,
                                     "Отправьте, пожалуйста, отчет в следующем формате:" +
                                             "\nфото кошки" +
@@ -157,26 +177,36 @@ public class TelegramPetBotListener implements UpdatesListener {
                                             "\nтретье сообщение-начинается словом-'Рацион кошки'" +
                                             "\nчетвертое сообщение-начинается словом-'Изменения кошки'");
                             telegramBot.execute(receievedMenuCat3);
-                            break;
-                    }
-
-                    if (textM.contains("Условия собаки")) {
-                        dogReport.setCondition(textM);
-                    } else if (textM.contains("Рацион собаки")) {
-                        dogReport.setRation(textM);
-                    } else if (textM.contains("Изменения собаки")) {
-                        dogReport.setChanges(textM);
-                    }
-
-                    if (textM.contains("Условия кошки")) {
-                        catReport.setCondition(textM);
-                    } else if (textM.contains("Рацион кошки")) {
-                        catReport.setRation(textM);
-                    } else if (textM.contains("Изменения кошки")) {
-                        catReport.setChanges(textM);
+                            condition = 0;
+                        }
                     }
                 }
+                conditionStatus.setChat_id(chatId);
+                conditionStatus.setConditionForReport(condition);
+                conditionRepository.save(conditionStatus);
+                condition = condition + 1;
 
+                if (conditionRepository.findByConditionForReport(1) != null && conditionRepository.findByConditionForReport(3) == null && conditionRepository.findByConditionForReport(2) == null) {
+                    dogReport.setCondition(textM);
+                } else if (conditionRepository.findByConditionForReport(2) != null && conditionRepository.findByConditionForReport(1) != null && conditionRepository.findByConditionForReport(3) == null) {
+                    dogReport.setRation(textM);
+
+                } else if (conditionRepository.findByConditionForReport(3) != null && conditionRepository.findByConditionForReport(2) != null && conditionRepository.findByConditionForReport(1) != null) {
+                    dogReport.setChanges(textM);
+                }
+                dogReportRepository.save(dogReport);
+
+
+
+               /* if (conditionRepository.findByChatId(chatId).getConditionForReport() == 1) {
+                    dogReport.setChanges(textM);
+                    dogReportRepository.save(dogReport);
+
+                } else if (conditionRepository.findByChatId(chatId).getConditionForReport() == 2) {
+                    dogReport.setRation(textM);
+                    dogReportRepository.save(dogReport);
+                } else logger.info("!!!");
+*/
                 if (update.message().photo() != null) {
                     PhotoSize[] photoSizes = update.message().photo();
                     for (PhotoSize photoSize : photoSizes) {
@@ -184,8 +214,8 @@ public class TelegramPetBotListener implements UpdatesListener {
                             GetFileResponse getFileResponse = telegramBot.execute(new GetFile(photoSize.fileId()));
                             byte[] bytes = telegramBot.getFileContent(getFileResponse.file());
                             dogPhoto.setData(bytes);
-                            dogReport.setDogPhoto(dogPhoto);
                             dogPhotoRepository.save(dogPhoto);
+                            dogReport.setDogPhoto(dogPhoto);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -205,9 +235,9 @@ public class TelegramPetBotListener implements UpdatesListener {
 //                        }
 //                    }
                 }
-                dogReportRepository.save(dogReport);
+      //         dogReportRepository.save(dogReport);
             }
-        });
+        }
         return UpdatesListener.CONFIRMED_UPDATES_ALL;
     }
 
@@ -225,5 +255,6 @@ public class TelegramPetBotListener implements UpdatesListener {
             logger.info("user already created");
         }
     }
+
 }
 
