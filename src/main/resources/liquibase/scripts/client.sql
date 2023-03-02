@@ -66,7 +66,13 @@ CREATE TABLE volunteer
     surname TEXT,
     mail    TEXT
 );
-CREATE TABLE condition
+CREATE TABLE count_dog
+(
+    id SERIAL primary key not null,
+    chat_id int8,
+    condition_for_report int4
+);
+CREATE TABLE count_cat
 (
     id SERIAL primary key not null,
     chat_id int8,

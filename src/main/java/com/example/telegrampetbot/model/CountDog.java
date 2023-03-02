@@ -6,7 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Condition {
+public class CountDog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -38,13 +38,13 @@ public class Condition {
         this.chatId = chatId;
     }
 
-    public Condition(Integer id, Long chatId, Integer conditionForReport) {
+    public CountDog(Integer id, Long chatId, Integer conditionForReport) {
         this.chatId = chatId;
         this.id = id;
         this.conditionForReport=conditionForReport;
     }
 
 
-    public Condition() {
+    public CountDog() {
     }
 }
